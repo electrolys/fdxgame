@@ -25,7 +25,7 @@ function loadJSON(filePath) {
   var json = loadTextFileAjaxSync(filePath, "application/json");
   // Parse json
   return JSON.parse(json);
-}   
+}
 
 
 var keysdown = {
@@ -55,14 +55,16 @@ var mee = {
 }
 
 function intersectRect(r1, r2) {
-  return !(r2.left > r1.right || 
-           r2.right < r1.left || 
+  return !(r2.left > r1.right ||
+           r2.right < r1.left ||
            r2.top > r1.bottom ||
            r2.bottom < r1.top);
-}var jump = {left:false,right:false,up:false,dash:false};
+}
+
+var jump = {left:false,right:false,up:false,dash:false};
 
 function collide(pl,r){
-    if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){ 
+    if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){
 		var roff=Math.abs(pl.x-0.5-r.right);
 		var loff=Math.abs(pl.x+0.5-r.left);
 		if (Math.abs(r.top-0.5-pl.y) < 0.6 && (loff>0.01||jump.up) && (roff>0.01||jump.up)){
@@ -75,12 +77,12 @@ function collide(pl,r){
                 if (Math.abs(r.left-0.5-pl.x) < 0.6){
                     pl.x = r.left-0.499;
                     if (pl.xv>0.0)
-                        pl.xv = 0.0; 
+                        pl.xv = 0.0;
 					jump.left=true;
                 }else{
                     pl.y = r.bottom+0.5;
 					if (pl.yv<0.0)
-						pl.yv = 0.0;    
+						pl.yv = 0.0;
                 }
             }else{
                 if (Math.abs(r.right+0.5-pl.x) < 0.6){
@@ -91,11 +93,11 @@ function collide(pl,r){
                 }else{
                     pl.y = r.bottom+0.5;
                     if (pl.yv<0.0)
-						pl.yv = 0.0; 
+						pl.yv = 0.0;
                 }
             }
          }
-    } 
+    }
 }
 //function collidepl(pl,pl2){
 //    collide(pl,{top:pl2.y-0.5,bottom:pl2.y+0.5,right:pl2.x+0.5,left:pl2.x-0.5})
@@ -122,7 +124,7 @@ else{
 	document.addEventListener('keydown', function(event) {
 	switch (event.keyCode) {
     case 37: // <-
-		
+
 		if (!event.repeat)
 		keysdown.left = true;
 		break;
@@ -134,12 +136,12 @@ else{
       if (!event.repeat)
 		keysdown.up = true;
       break;
-	case 38: 
+	case 38:
             if (!event.repeat)
 			keysdown.up = true;
             break;
     case 39: // ->
-		
+
 		if (!event.repeat)
 		keysdown.right = true;
       break;
@@ -155,27 +157,27 @@ else{
 	});
 	document.addEventListener('keyup', function(event) {
 	  switch (event.keyCode) {
-      case 37: 
+      case 37:
             if (!event.repeat)
 			keysdown.left = false;
             break;
-      case 90: 
+      case 90:
             if (!event.repeat)
 			keysdown.up = false;
             break;
-	case 32: 
+	case 32:
             if (!event.repeat)
 			keysdown.up = false;
             break;
-		case 38: 
+		case 38:
             if (!event.repeat)
 			keysdown.up = false;
             break;
-      case 39: 
+      case 39:
             if (!event.repeat)
 			keysdown.right = false;
             break;
-      case 88: 
+      case 88:
             if (!event.repeat)
 			keysdown.use = false;
             break;
@@ -201,7 +203,7 @@ socket.on('kick', function(id) {
 	}
 }
 )
-	
+
 
 
 setInterval(function() {
@@ -223,7 +225,7 @@ var ground = [];
 var decor = [];
 var tfuncs = [
 		function(pl){console.log("trig")}
-		
+
 ]
 for (var i = 1; i < 23 ; i++){
 	tfuncs.push(new Function("pl", "itemtypes["+i+"].stk=1;"));
@@ -246,52 +248,6 @@ tfuncs.push(function(pl){pl.x = -658; pl.y = 488;pl.xv = 0; pl.yv = 0;});
 
 var triggers = [];
 
-function convertHexToRgbA(hexVal) { 
-            var ret; 
-              
-            // If the hex value is valid. 
-            //if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hexVal)) { 
-                  
-                // Getting the content after '#', 
-                // eg. 'ffffff' in case of '#ffffff' 
-                ret = hexVal.slice(1); 
-                  
-                // Splitting each character 
-                ret = ret.split(''); 
-                  
-                // Checking if the length is 3 
-                // then make that 6 
-                if(ret.length == 3) { 
-                    var ar = []; 
-                    ar.push(ret[0]);  
-                    ar.push(ret[0]); 
-                    ar.push(ret[1]); 
-                    ar.push(ret[1]); 
-                    ar.push(ret[2]); 
-                    ar.push(ret[2]); 
-                    ret = ar; 
-                } 
-                  
-                // Starts with '0x'(in hexadecimal) 
-                ret = '0x'+ ret.join(''); 
-                  
-                // Converting the first 2 characters 
-                // from hexadecimal to r value 
-                var r = (ret>>16)&255; 
-                  
-                // Converting the second 2 characters 
-                // to hexadecimal to g value 
-                var g = (ret>>8)&255; 
-                  
-                // Converting the last 2 characters 
-                // to hexadecimal to b value 
-                var b = ret&255; 
-                  
-                // Appending all of them to make 
-                // the RGBA value 
-                return 'rgba('+[r, g, b].join(',')+',1)'; 
-            //} 
-        }
 if (lvl)
 for (var i = 0; i < lvl.length; i++){
     var t = lvl[i];
@@ -339,7 +295,7 @@ socket.on('s', function(players) {
 			for (var i = 0; i < player.pjs.length; i++) {
 				if (intersectRect({top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5},
 					{top:player.pjs[i].y-player.pjs[i].height,bottom:player.pjs[i].y+player.pjs[i].height,right:player.pjs[i].x+player.pjs[i].width,left:player.pjs[i].x-player.pjs[i].width})){
-					if (hit <= 0.0){		
+					if (hit <= 0.0){
 						mee.hp-=player.pjs[i].atk;
 						hit = 0.3;
 						if (mee.hp <= 0.0){
@@ -434,7 +390,7 @@ var itemtypes = [
 		cool:0.75,
 		func:function(pl){
 		var atk = 10;
-		
+
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
 		else
@@ -445,7 +401,7 @@ var itemtypes = [
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
 		}
-		}		
+		}
 	}//sword
 	,{
 		stk:0,
@@ -453,7 +409,7 @@ var itemtypes = [
 		cool:0.75,
 		func:function(pl){
 		var atk = 20;
-		
+
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
 		else
@@ -464,7 +420,7 @@ var itemtypes = [
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
 		}
-		}		
+		}
 	}//good sword
 	,{
 		stk:0,
@@ -472,7 +428,7 @@ var itemtypes = [
 		cool:0.75,
 		func:function(pl){
 		var atk = 30;
-		
+
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
 		else
@@ -483,7 +439,7 @@ var itemtypes = [
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
 		}
-		}		
+		}
 	}//best sword
 	,
 	{
@@ -492,13 +448,13 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 5;
-		
-		
+
+
 			if (pl.dir)
 				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
-		}	
+		}
 	}//cutter
 	,{
 		stk:0,
@@ -506,13 +462,13 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 10;
-		
-		
+
+
 			if (pl.dir)
 				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
-		}	
+		}
 	}//good cutter
 	,{
 		stk:0,
@@ -520,13 +476,13 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 20;
-		
-		
+
+
 			if (pl.dir)
 				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
-		}	
+		}
 	}//best cutter
 	,
 	{
@@ -541,7 +497,7 @@ var itemtypes = [
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			
+
 		}else{
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -563,7 +519,7 @@ var itemtypes = [
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			
+
 		}else{
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -585,7 +541,7 @@ var itemtypes = [
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			
+
 		}else{
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -607,7 +563,7 @@ var itemtypes = [
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			
+
 		}else{
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -774,16 +730,16 @@ var characters = [
 	characters[1].src = 'static/img/man2.png';
 	characters[2].src = 'static/img/man3.png';
 	characters[3].src = 'static/img/tman.png'
-	
+
 	characters[4].src = 'static/img/girl1.png'
 	characters[5].src = 'static/img/girl2.png'
-	
+
 	characters[6].src = 'static/img/bike.png';
 	characters[7].src = 'static/img/bike2.png';
-	
+
 	characters[8].src = 'static/img/bot.png';
 	characters[9].src = 'static/img/pinkbot.png';
-	
+
 	characters[10].src = 'static/img/dog.png'
 	characters[11].src = 'static/img/cat.png'
 var spsize = 64;
@@ -794,7 +750,7 @@ setInterval(function() {
 	canvas.height = window.innerHeight;
     context.clearRect(0, 0, canvas.width, canvas.height);
     plsize = canvas.height/16;
-    
+
     var trectangle = {top:(-canvas.height/2/plsize+mee.y)-0.3,bottom:(canvas.height/2/plsize+mee.y)+0.3,left:(-canvas.width/2/plsize+mee.x)-0.3,right:(canvas.width/2/plsize+mee.x)+0.3};
 
 	var drawnd = []
@@ -807,7 +763,7 @@ setInterval(function() {
 	if (drawnd[0])context.fillStyle = drawnd[0].col;
 	context.beginPath();
     for (var i = 0; i < drawnd.length; i++) {
-            
+
             context.rect(((drawnd[i].left-mee.x)*plsize+canvas.width/2),((drawnd[i].top-mee.y)*plsize+canvas.height/2),(drawnd[i].right-drawnd[i].left)*plsize,(drawnd[i].bottom-drawnd[i].top)*plsize);
             if (i == drawnd.length-1){
 				context.fill();
@@ -835,7 +791,7 @@ setInterval(function() {
 	if (drawn[0])context.fillStyle = drawn[0].col;
 	context.beginPath();
     for (var i = 0; i < drawn.length; i++) {
-            
+
             context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2),((drawn[i].top-mee.y)*plsize+canvas.height/2),(drawn[i].right-drawn[i].left)*plsize,(drawn[i].bottom-drawn[i].top)*plsize);
             if (i == drawn.length-1){
 				context.fill();
@@ -855,7 +811,7 @@ setInterval(function() {
 	}
 	context.strokeStyle = "red";
 	context.fillStyle = "black";
-	context.font = "20px Arial";
+	context.font = "20px Verdana";
 	context.lineWidth = plsize/10.0;
 	context.beginPath();
     for (var i = 0; i < drawnt.length; i++) {
@@ -865,12 +821,12 @@ setInterval(function() {
 	for (var i = 0; i < drawnt.length; i++) {
 		if (drawnt[i].name != " "){
 			var tstr = drawnt[i].name.toString()+ ((drawnt[i].cool>0)?":"+Math.floor(Math.max(drawnt[i].cool,0)).toString():"");
-			context.fillText(tstr, (((((drawnt[i].left+drawnt[i].right)/2.0)-mee.x)*plsize+canvas.width/2))-(context.measureText(tstr).width/2) ,(((((drawnt[i].top+drawnt[i].bottom)/2.0)-mee.y)*plsize+canvas.height/2))-8 ); 
+			context.fillText(tstr, (((((drawnt[i].left+drawnt[i].right)/2.0)-mee.x)*plsize+canvas.width/2))-(context.measureText(tstr).width/2) ,(((((drawnt[i].top+drawnt[i].bottom)/2.0)-mee.y)*plsize+canvas.height/2))-8 );
 		}
 	}
-	
 
-	
+
+
 	for (var i = 0; i < mee.pjs.length; i++) {
 			context.fillStyle = 'blue';
             context.beginPath();
@@ -879,7 +835,7 @@ setInterval(function() {
 	}
 
 	context.drawImage(characters[mee.char],0,mee.anim*spsize,spsize,spsize,(canvas.width/2)-plsize/2,(canvas.height/2)-plsize/2,plsize,plsize);
-	
+
 	var tpls = 0;
 
 	for (var id in cplayers) {
@@ -890,7 +846,7 @@ setInterval(function() {
 			context.beginPath();
 			for (var i = 0; i < player.pjs.length; i++) {
 				context.rect(((player.pjs[i].x-mee.x)*plsize+canvas.width/2)-plsize*player.pjs[i].width,((player.pjs[i].y-mee.y)*plsize+canvas.height/2)-plsize*player.pjs[i].height,player.pjs[i].width*2*plsize,player.pjs[i].height*2*plsize);
-				
+
 			}
             context.fill();
             //context.fillStyle = 'red';
@@ -898,14 +854,14 @@ setInterval(function() {
             //context.rect(((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2,plsize,plsize);
             //context.fill();
 			context.fillStyle = 'red';
-			context.font = "16px Arial";
-			context.fillText(Math.floor(player.hp), ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2); 
+			context.font = "16px Verdana";
+			context.fillText(Math.floor(player.hp), ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2);
 			context.fillStyle = 'rgb(255, 153, 0)';
-			context.font = "16px Arial";
-			context.fillText(player.score, ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,(((player.y-mee.y)*plsize-15)+canvas.height/2)-plsize/2); 
+			context.font = "16px Verdana";
+			context.fillText(player.score, ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,(((player.y-mee.y)*plsize-15)+canvas.height/2)-plsize/2);
 			context.fillStyle = 'black';
-			context.font = "16px Arial";
-			context.fillText(player.name, ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,(((player.y-mee.y)*plsize-30)+canvas.height/2)-plsize/2); 
+			context.font = "16px Verdana";
+			context.fillText(player.name, ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,(((player.y-mee.y)*plsize-30)+canvas.height/2)-plsize/2);
 			if (intersectRect(trectangle,{top:player.y-0.5,bottom:player.y+0.5,right:player.x+0.5,left:player.x-0.5})){
 				context.drawImage(characters[player.char],0,player.anim*spsize,spsize,spsize,((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2,plsize,plsize);
 			}else
@@ -920,11 +876,11 @@ setInterval(function() {
 					context.beginPath();
 					context.arc(Math.max(Math.min(((player.x-mee.x)*plsize+canvas.width/2),canvas.width),0),Math.max(Math.min(((player.y-mee.y)*plsize+canvas.height/2),canvas.height),0), plsize/(1.4*num), 0, 2 * Math.PI);
 					context.fill();
-					
+
 				}
         }
     }
-	
+
 
 	var count = 0;
 	for (var i = 0 ; i < itemtypes.length ; i++)
@@ -935,6 +891,7 @@ setInterval(function() {
     context.rect( 4,0,16*16,count*16+8);
     context.fill();
 
+    context.font = "16px Verdana";
 	context.fillStyle = 'rgba(125, 125, 125,0.5)';
     context.beginPath();
     context.rect( canvas.width-Math.max(context.measureText("<"+mee.name+">        ").width,context.measureText("<"+"            "+">        ").width),0,Math.max(context.measureText("<"+mee.name+">       ").width,context.measureText("<"+"            "+">       ").width ) , 4*16+8);
@@ -952,16 +909,16 @@ setInterval(function() {
 	temppl.sort(function(a,b){return b.score-a.score;})
 
 	context.fillStyle = 'blue';
-	context.font = "16px Arial";
+	context.font = "16px Verdana";
 	context.fillText("CD:"+Math.max(Math.floor(cool*10),0), (canvas.width)-context.measureText("CD:"+Math.max(Math.floor(cool*10),0)+"  ").width,64);
 	context.fillStyle = 'red';
-	context.font = "16px Arial";
+	context.font = "16px Verdana";
 	context.fillText("HP:"+Math.floor(mee.hp), (canvas.width)-context.measureText("HP:"+Math.floor(mee.hp)+"  ").width,48);
 	context.fillStyle = 'rgba(255, 153, 0,255)';
-	context.font = "16px Arial";
+	context.font = "16px Verdana";
 	context.fillText("score:"+mee.score, (canvas.width)-context.measureText("score:"+mee.score+"  ").width,32);
 	context.fillStyle = 'black';
-	context.font = "16px Arial";
+	context.font = "16px Verdana";
 	context.fillText("<"+mee.name+">", (canvas.width)-context.measureText("<"+mee.name+">  ").width,16);
 	context.fillStyle = 'rgba(0,0,0,0.6)';
 	context.fillText("online:"+tpls, 8,canvas.height-16);
@@ -972,7 +929,7 @@ setInterval(function() {
 	context.fillText("2nd [ "+temppl[1].name+":"+temppl[1].score+" ]", (canvas.width)-context.measureText("2nd [ "+temppl[1].name+":"+temppl[1].score+" ]  ").width,canvas.height-32);
 	if (temppl[2])
 	context.fillText("3rd [ "+temppl[2].name+":"+temppl[2].score+" ]", (canvas.width)-context.measureText("3rd [ "+temppl[2].name+":"+temppl[2].score+" ]  ").width,canvas.height-16);
-	
+
 	context.fillStyle = 'black';
 	var index = 0;
 	for (var i = 0 ; i < itemtypes.length ; i++){
@@ -984,7 +941,7 @@ setInterval(function() {
 		}
 		else
 			if (itemtypes[i].stk){
-				
+
 				context.fillText(itemtypes[i].name+((itemtypes[i].stk>1)?":"+itemtypes[i].stk:""), 8,16+index*16);
 				index+=1;
 			}
@@ -992,19 +949,19 @@ setInterval(function() {
 
 	if (isMobile){
 		context.fillStyle = 'black';
-		context.font = "80px Arial";
+		context.font = "80px Verdana";
 		context.fillText("<", 0,canvas.height-80);
 		context.fillStyle = 'black';
-		context.font = "80px Arial";
+		context.font = "80px Verdana";
 		context.fillText(">", 80,canvas.height-80);
 		context.fillStyle = 'black';
-		context.font = "80px Arial";
+		context.font = "80px Verdana";
 		context.fillText("C", canvas.width-240,canvas.height-80);
 		context.fillStyle = 'black';
-		context.font = "80px Arial";
+		context.font = "80px Verdana";
 		context.fillText("X", canvas.width-160,canvas.height-80);
 		context.fillStyle = 'black';
-		context.font = "80px Arial";
+		context.font = "80px Verdana";
 		context.fillText("Z", canvas.width-80,canvas.height-80);
 	}
 
@@ -1067,7 +1024,7 @@ if (characters[tchar])
 else{
 	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
 		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
-	else 
+	else
 		mee.char = 0;
 }
 }
@@ -1084,7 +1041,7 @@ var thp = 0.0;
 setInterval(function() {
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
-	animtime+=dt;	
+	animtime+=dt;
 	punchanim-=dt;
 	thp+= dt;
 	if (thp>7.0){
@@ -1141,7 +1098,7 @@ setInterval(function() {
 			}
 			sitm = 0;
 		}
-    
+
     const spd = 10;
     mee.yv += 13*dt;
 	cool-=dt;
@@ -1186,13 +1143,13 @@ setInterval(function() {
 		//	if (sitm<0)
 		//		sitm=items.length-1;
 		//}
-	
-	
+
+
 		if (keysdown.up && !keysdown.pup)
 		{
 			if (jump.up){
 				mee.yv = -10;
-				
+
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 					if (jump.left&& mee.dir){
@@ -1204,16 +1161,16 @@ setInterval(function() {
 						mee.xv = 7;
 					}
 				}else{
-					
+
 						if (mee.dir)
 							mee.xv = 12;
 						else
 							mee.xv = -12;
-						
+
 				}
 
 			}
-			
+
 		}
 		if (keysdown.use)
 		{
@@ -1237,7 +1194,7 @@ setInterval(function() {
 				mee.xv += spd*dt;
 		}
 		if (keysdown.left)
-		{	
+		{
 			mee.dir = false;
 		    if (jump.up){
 				if (mee.xv > 0)
@@ -1247,15 +1204,15 @@ setInterval(function() {
 			else
 				mee.xv -= spd*dt;
 		}
-	
+
 	keysdown.pup = keysdown.up;
 	keysdown.pleft = keysdown.left;
 	keysdown.pright = keysdown.right;
 	keysdown.puse = keysdown.use;
 	keysdown.pswitch = keysdown.switch;
 
-	
-	
+
+
     var steps = Math.floor(Math.sqrt(mee.xv*mee.xv+mee.yv*mee.yv)*2.0);
     var altdt = dt/steps;
     //console.log(1.0/dt);
@@ -1275,7 +1232,7 @@ setInterval(function() {
         for (var i = 0; i < ground.length; i++) {
             collide(mee,ground[i]);
         }
-        
+
         var plrect = {top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5};
 		for (var i = 0 ; i < triggers.length ; i++ ){
 			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
@@ -1289,7 +1246,7 @@ setInterval(function() {
 				for (var i = 0; i < player.pjs.length; i++) {
 					if (intersectRect(plrect,
 						{top:player.pjs[i].y-player.pjs[i].height,bottom:player.pjs[i].y+player.pjs[i].height,right:player.pjs[i].x+player.pjs[i].width,left:player.pjs[i].x-player.pjs[i].width})){
-						if (hit <= 0.0){		
+						if (hit <= 0.0){
 							mee.hp-=player.pjs[i].atk;
 							hit = 0.3;
 							if (mee.hp <= 0.0){
@@ -1318,7 +1275,7 @@ setInterval(function() {
 	if (jump.right  && !mee.dir){
 		mee.yv = Math.min(mee.yv,3);
 	}
-	
+
 	if (jump.up)
 	{
 		if (keysdown.right || keysdown.left)
@@ -1395,18 +1352,15 @@ setInterval(function() {
 			mee.anim=15;
 		}
 	}
-	
+
 	for (var i = 0; i < mee.pjs.length; i++) {
 		mee.pjs[i].x+=mee.pjs[i].xv*dt;
 		mee.pjs[i].y+=mee.pjs[i].yv*dt;
 		mee.pjs[i].dur-=dt;
 	}
-	
+
 	hit -= dt;
-    
+
     lastUpdateTime = currentTime;
 
 }, 1000/60);
-
-
-
