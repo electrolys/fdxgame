@@ -9,7 +9,7 @@ var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 
-var PORT = process.env.PORT | 5000;
+var PORT = process.env.PORT || 5000;
 app.set('port', PORT);
 app.use('/static', express.static(__dirname + '/static'));
 
