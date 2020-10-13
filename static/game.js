@@ -1039,11 +1039,16 @@ var punchanim = -0.1;
 
 
 var thp = 0.0;
-var scollect = new Audio('static/sound/collect.mp3');
 var sfoot = new Audio('static/sound/foot.mp3');
 var spunch = new Audio('static/sound/punch.mp3');
 var sjump = new Audio('static/sound/jump.mp3');
+var sslide = new Audio('static/sound/slide.mp3');
 setInterval(function() {
+  if (jump.right||jump.left){
+    sslide.play();
+  }else{
+    sslide.pause();
+  }
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
 	animtime+=dt;
@@ -1256,9 +1261,6 @@ setInterval(function() {
 			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
 				tfuncs[triggers[i].func](mee);
 				triggers[i].cool = 20.0;
-        scollect.pause();
-        scollect.fastSeek(0);
-        scollect.play();
 			}
 		}
 		for (var id in cplayers) {
