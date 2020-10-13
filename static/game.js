@@ -62,7 +62,7 @@ function intersectRect(r1, r2) {
 }
 
 var jump = {left:false,right:false,up:false,dash:false};
-var collect = new Audio('static/collect.mp3');
+var collect = new Audio('static/sound/collect.mp3');
 
 function collide(pl,r){
     if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){
