@@ -62,7 +62,7 @@ function intersectRect(r1, r2) {
 }
 
 var jump = {left:false,right:false,up:false,dash:false};
-var collect = new Audio('static/sound/collect.mp3');
+
 
 function collide(pl,r){
     if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){
@@ -1039,6 +1039,9 @@ var punchanim = -0.1;
 
 
 var thp = 0.0;
+var scollect = new Audio('static/sound/collect.mp3');
+var sfoot = new Audio('static/sound/foot.mp3');
+var spunch = new Audio('static/sound/punch.mp3');
 setInterval(function() {
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
@@ -1061,13 +1064,17 @@ setInterval(function() {
 		else if (mee.anim == 3)
 			mee.anim = 1;
 
-		if (mee.anim == 10)
+		if (mee.anim == 10){
 			mee.anim = 12;
+      foot.play();
+    }
 		else if (mee.anim == 12)
 			mee.anim = 10;
 
-		if (mee.anim == 11)
+		if (mee.anim == 11){
 			mee.anim = 13;
+      sfoot.play();
+    }
 		else if (mee.anim == 13)
 			mee.anim = 11;
 		animtime = 0;
@@ -1176,6 +1183,7 @@ setInterval(function() {
 		if (keysdown.use)
 		{
 		if (cool <= 0.0){
+      spunch.play();
 			if (itemtypes[sitm].stk>0){
 				itemtypes[sitm].func(mee);
 				cool = itemtypes[sitm].cool;
@@ -1239,7 +1247,7 @@ setInterval(function() {
 			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
 				tfuncs[triggers[i].func](mee);
 				triggers[i].cool = 20.0;
-        collect.play();
+        scollect.play();
 			}
 		}
 		for (var id in cplayers) {
