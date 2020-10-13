@@ -1066,13 +1066,17 @@ setInterval(function() {
 
 		if (mee.anim == 10){
 			mee.anim = 12;
-      foot.play();
+      sfoot.pause();
+      sfoot.fastSeek(0);
+      sfoot.play();
     }
 		else if (mee.anim == 12)
 			mee.anim = 10;
 
 		if (mee.anim == 11){
 			mee.anim = 13;
+      sfoot.pause();
+      sfoot.fastSeek(0);
       sfoot.play();
     }
 		else if (mee.anim == 13)
@@ -1183,6 +1187,8 @@ setInterval(function() {
 		if (keysdown.use)
 		{
 		if (cool <= 0.0){
+      spunch.pause();
+      spunch.fastSeek(0);
       spunch.play();
 			if (itemtypes[sitm].stk>0){
 				itemtypes[sitm].func(mee);
@@ -1247,6 +1253,8 @@ setInterval(function() {
 			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
 				tfuncs[triggers[i].func](mee);
 				triggers[i].cool = 20.0;
+        scollect.pause();
+        scollect.fastSeek(0);
         scollect.play();
 			}
 		}
