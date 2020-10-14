@@ -1192,6 +1192,7 @@ setInterval(function() {
 				}else if (djump){
             mee.yv = -8;
             mee.xv = 0;
+            djump = false;
 
 				}
 
