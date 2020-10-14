@@ -1047,11 +1047,11 @@ var pslide = false;
 sslide.loop = true;
 setInterval(function() {
 
-  if (((jump.right||jump.left)&&pl.yv>0.1) && !pslide){
+  if (((jump.right||jump.left)&&mee.yv>0.1) && !pslide){
     sslide.play();
 
   }
-  if ((!((jump.right||jump.left)&&pl.yv>0.1))&&pslide){
+  if ((!((jump.right||jump.left)&&mee.yv>0.1))&&pslide){
     sslide.pause();
   }
   pslide = (jump.right||jump.left);
