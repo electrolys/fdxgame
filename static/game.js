@@ -1169,15 +1169,16 @@ setInterval(function() {
 		//		sitm=items.length-1;
 		//}
 
-    if (jump.up)
+    if (jump.up || jump.left || jump.right)
       djump = true;
 		if (keysdown.up && !keysdown.pup)
 		{
-      sjump.pause();
-      sjump.fastSeek(0);
-      sjump.play();
+
 			if (jump.up){
 				mee.yv = -10;
+        sjump.pause();
+        sjump.fastSeek(0);
+        sjump.play();
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 
@@ -1189,10 +1190,17 @@ setInterval(function() {
 						mee.yv = -10;
 						mee.xv = 7;
 					}
+          sjump.pause();
+          sjump.fastSeek(0);
+          sjump.play();
 				}else if (djump){
+
             mee.yv = -8;
             mee.xv = 0;
             djump = false;
+            sjump.pause();
+            sjump.fastSeek(0);
+            sjump.play();
 
 				}
 
