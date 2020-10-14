@@ -1044,6 +1044,7 @@ var spunch = new Audio('static/sound/punch.mp3');
 var sjump = new Audio('static/sound/jump.mp3');
 var sslide = new Audio('static/sound/slide.mp3');
 var pslide = false;
+var djump = false;
 sslide.loop = true;
 setInterval(function() {
 
@@ -1168,7 +1169,8 @@ setInterval(function() {
 		//		sitm=items.length-1;
 		//}
 
-
+    if (jump.up)
+      djump = true;
 		if (keysdown.up && !keysdown.pup)
 		{
       sjump.pause();
@@ -1187,11 +1189,9 @@ setInterval(function() {
 						mee.yv = -10;
 						mee.xv = 7;
 					}
-				}else{
-            if (mee.dir)
-							mee.xv = 12;
-						else
-							mee.xv = -12;
+				}else if (djump){
+            mee.yv = -8;
+            mee.xv = 0;
 
 				}
 
