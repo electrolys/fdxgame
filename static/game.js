@@ -1195,8 +1195,10 @@ setInterval(function() {
           sjump.play();
 				}else if (djump){
 
-            mee.yv = -8;
-            mee.xv = 0;
+            if (mee.dir)
+              mee.xv = 6;
+            else
+              mee.xv = -6
             djump = false;
             sjump.pause();
             sjump.fastSeek(0);
