@@ -1054,7 +1054,7 @@ setInterval(function() {
   if ((!((jump.right||jump.left)&&mee.yv>0.1))&&pslide){
     sslide.pause();
   }
-  pslide = (jump.right||jump.left);
+  pslide = (jump.right||jump.left)&&mee.yv>0.1;
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
 	animtime+=dt;
