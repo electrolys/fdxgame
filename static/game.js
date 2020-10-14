@@ -1050,7 +1050,8 @@ setInterval(function() {
   if ((jump.right||jump.left) && !pslide){
     sslide.play();
 
-  }else if (pslide){
+  }
+  if ((!(jump.right||jump.left))&&pslide){
     sslide.pause();
   }
   pslide = (jump.right||jump.left);
