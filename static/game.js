@@ -1043,12 +1043,16 @@ var sfoot = new Audio('static/sound/foot.mp3');
 var spunch = new Audio('static/sound/punch.mp3');
 var sjump = new Audio('static/sound/jump.mp3');
 var sslide = new Audio('static/sound/slide.mp3');
+var pslide = false;
 setInterval(function() {
-  if (jump.right||jump.left){
+
+  if ((jump.right||jump.left) && !pslide){
     sslide.play();
-  }else{
+
+  }else if (pslide){
     sslide.pause();
   }
+  pslide = (jump.right||jump.left);
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
 	animtime+=dt;
