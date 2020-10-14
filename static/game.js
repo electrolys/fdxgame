@@ -1048,14 +1048,14 @@ var djump = false;
 sslide.loop = true;
 setInterval(function() {
 
-  if (((jump.right||jump.left)&&mee.yv>0.1) && !pslide){
+  if ((((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1) && !pslide){
     sslide.play();
 
   }
-  if ((!((jump.right||jump.left)&&mee.yv>0.1))&&pslide){
+  if ((!(((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1))&&pslide){
     sslide.pause();
   }
-  pslide = (jump.right||jump.left)&&mee.yv>0.1;
+  pslide = ((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1;
 	var currentTime = performance.now();
     var dt = (currentTime - lastUpdateTime)/1000.0;
 	animtime+=dt;
