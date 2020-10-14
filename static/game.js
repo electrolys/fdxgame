@@ -1044,6 +1044,7 @@ var spunch = new Audio('static/sound/punch.mp3');
 var sjump = new Audio('static/sound/jump.mp3');
 var sslide = new Audio('static/sound/slide.mp3');
 var pslide = false;
+sslide.loop = true;
 setInterval(function() {
 
   if ((jump.right||jump.left) && !pslide){
