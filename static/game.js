@@ -1080,7 +1080,7 @@ setInterval(function() {
 		if (mee.anim == 10){
 			mee.anim = 12;
       sfoot.pause();
-      sfoot.fastSeek(0);
+      sfoot.currentTime = 0;
       sfoot.play();
     }
 		else if (mee.anim == 12)
@@ -1089,7 +1089,7 @@ setInterval(function() {
 		if (mee.anim == 11){
 			mee.anim = 13;
       sfoot.pause();
-      sfoot.fastSeek(0);
+      sfoot.currentTime = 0;
       sfoot.play();
     }
 		else if (mee.anim == 13)
@@ -1177,7 +1177,7 @@ setInterval(function() {
 			if (jump.up){
 				mee.yv = -10;
         sjump.pause();
-        sjump.fastSeek(0);
+        sjump.currentTime = 0;
         sjump.play();
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
@@ -1191,7 +1191,7 @@ setInterval(function() {
 						mee.xv = 7;
 					}
           sjump.pause();
-          sjump.fastSeek(0);
+          sjump.currentTime = 0;
           sjump.play();
 				}else if (djump){
 
@@ -1201,7 +1201,7 @@ setInterval(function() {
               mee.xv = -6
             djump = false;
             sjump.pause();
-            sjump.fastSeek(0);
+            sjump.currentTime = 0;
             sjump.play();
 
 				}
@@ -1213,7 +1213,7 @@ setInterval(function() {
 		{
 		if (cool <= 0.0){
       spunch.pause();
-      spunch.fastSeek(0);
+      spunch.currentTime = 0;
       spunch.play();
 			if (itemtypes[sitm].stk>0){
 				itemtypes[sitm].func(mee);
