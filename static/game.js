@@ -1204,10 +1204,10 @@ setInterval(function() {
 				}else if (djump){
 
             if (mee.dir)
-              mee.xv = 6;
+              mee.xv = 10;
             else
-              mee.xv = -6;
-            mee.yv = -5;
+              mee.xv = -10;
+            mee.yv = -10;
             djump = false;
             sjump.pause();
             sjump.currentTime = 0;
