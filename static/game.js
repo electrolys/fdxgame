@@ -1202,7 +1202,7 @@ setInterval(function() {
 
 
 
-    var steps = Math.floor(Math.sqrt(mee.xv*mee.xv+mee.yv*mee.yv)*8.0)+1;
+    var steps = Math.floor(Math.sqrt(mee.xv*dt*mee.xv*dt+mee.yv*dt*mee.yv*dt)*8.0)+1;
     var altdt = dt/steps;
     //console.log(1.0/dt);
 	for (var i = 0 ; i < triggers.length ; i++ )
