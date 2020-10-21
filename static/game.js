@@ -1206,7 +1206,8 @@ setInterval(function() {
             if (mee.dir)
               mee.xv = 6;
             else
-              mee.xv = -6
+              mee.xv = -6;
+            mee.yv = -5;
             djump = false;
             sjump.pause();
             sjump.currentTime = 0;
