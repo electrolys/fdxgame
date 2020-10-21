@@ -1158,8 +1158,9 @@ setInterval(function() {
 	}
 	if (keysdown.switch && !keysdown.pswitch){
 		sitm+=1;sitm%=itemtypes.length;
-    while (itemtypes[sitm].stk<=0)
-      sitm++;sitm%=itemtypes.length;
+    while (itemtypes[sitm].stk<=0){
+      sitm+=1;sitm%=itemtypes.length;
+    }
 	}
   if (itemtypes[sitm].stk<=0){
     sitm=0;
