@@ -1051,6 +1051,8 @@ var pslide = false;
 var djump = false;
 sslide.loop = true;
 setInterval(function() {
+  mee.score = Math.max(0,mee.score);
+  mee.hp = Math.min(100,mee.hp);
 
   if ((((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1) && !pslide){
     sslide.play();
@@ -1065,11 +1067,10 @@ setInterval(function() {
 	animtime+=dt;
 	punchanim-=dt;
 	thp+= dt;
-	if (thp>7.0){
+
+	if (thp>5.0){
 	thp=0;
 	mee.hp++;
-	if (mee.hp > 100)
-		mee.hp = 100;
 	}
 	if (animtime>(1.0/animspd)){
 		if (mee.anim == 0)
@@ -1157,10 +1158,10 @@ setInterval(function() {
 	}
 	if (keysdown.switch && !keysdown.pswitch){
 		sitm+=1;sitm%=itemtypes.length;
-		while (!(itemtypes[sitm].stk)){
-			sitm+=1;sitm%=itemtypes.length;
-		}
 	}
+  if ((itemtypes[sitm].stk)<1){
+    sitm=0;
+  }
 		//if (keysdown.right && !keysdown.pright)
 		//{
 		//	sitm+=1;
