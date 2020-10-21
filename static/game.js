@@ -968,6 +968,76 @@ setInterval(function() {
 
 }, 1000/60);
 
+var sfoot = new Audio('static/sound/foot.mp3');
+var spunch = new Audio('static/sound/punch.mp3');
+var sjump = new Audio('static/sound/jump.mp3');
+var sslide = new Audio('static/sound/slide.mp3');
+sfoot.volume = 0.4;
+spunch.volume = 0.2;
+sjump.volume = 0.2;
+sslide.volume = 0.2;
+
+mee.name = prompt("Username:\ncontrols:z/space/up-jump   x-use item   c-change item   left/right-move", "");
+var listc = {
+	"man1" : 0,
+	"cheeseman" : 0,
+	"mancheese" : 0,
+	"man2" : 1,
+	"man":1,
+	"redman":1,
+	"manred":1,
+	"mario":1,
+	"mario?":1,
+	"mario??":1,
+	"mario???":1,
+	"man3" : 2,
+	"greenman" : 2,
+	"mangreen" : 2,
+	"luigi" : 2,
+	"luigi?" : 2,
+	"luigi??" : 2,
+	"luigi???" : 2,
+	"tman" : 3,
+	"tshirtman" : 3,
+	"mantshirt" : 3,
+	"girl1" : 4,
+	"girl":4,
+	"pinkgirl":4,
+	"girlpink" : 5,
+	"girl2" : 5,
+	"bluegirl" : 5,
+	"girlblue" : 5,
+	"bike" : 6,
+	"bike1" : 6,
+	"redbike" : 6,
+	"bikered" : 6,
+	"bike2" : 7,
+	"bluebike" : 7,
+	"bikeblue" : 7,
+	"bot" : 8,
+	"bluebot" : 8,
+	"botblue" : 8,
+	"manbot" : 8,
+	"botman" : 8,
+	"pinkbot" : 9,
+	"botpink" : 9,
+	"girlbot" : 9,
+	"botgirl" : 9,
+	"cat" : 11,
+	"dog" : 10,
+}
+var tchar = prompt("Player:\n0:cheese man\n1:red man\n2:green man\n3:tshirt? man\n4:pink girl\n5:blue girl\n6:red bike\n7:blue bike\n8:blue bot\n9:pink bot\n10:dog\n11:cat","");
+
+if (tchar){
+if (characters[tchar])
+	mee.char = +tchar;
+else{
+	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
+		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
+	else
+		mee.char = 0;
+}
+}
 
 
 var lastUpdateTime = performance.now();
@@ -979,14 +1049,7 @@ var punchanim = -0.1;
 
 
 var thp = 0.0;
-var sfoot = new Audio('static/sound/foot.mp3');
-var spunch = new Audio('static/sound/punch.mp3');
-var sjump = new Audio('static/sound/jump.mp3');
-var sslide = new Audio('static/sound/slide.mp3');
-sfoot.volume = 0.4;
-spunch.volume = 0.2;
-sjump.volume = 0.2;
-sslide.volume = 0.2;
+
 var pslide = false;
 var djump = false;
 sslide.loop = true;
@@ -1353,66 +1416,3 @@ setInterval(function() {
     lastUpdateTime = currentTime;
 
 }, 1000/60);
-
-
-mee.name = prompt("Username:\ncontrols:z/space/up-jump   x-use item   c-change item   left/right-move", "");
-var listc = {
-	"man1" : 0,
-	"cheeseman" : 0,
-	"mancheese" : 0,
-	"man2" : 1,
-	"man":1,
-	"redman":1,
-	"manred":1,
-	"mario":1,
-	"mario?":1,
-	"mario??":1,
-	"mario???":1,
-	"man3" : 2,
-	"greenman" : 2,
-	"mangreen" : 2,
-	"luigi" : 2,
-	"luigi?" : 2,
-	"luigi??" : 2,
-	"luigi???" : 2,
-	"tman" : 3,
-	"tshirtman" : 3,
-	"mantshirt" : 3,
-	"girl1" : 4,
-	"girl":4,
-	"pinkgirl":4,
-	"girlpink" : 5,
-	"girl2" : 5,
-	"bluegirl" : 5,
-	"girlblue" : 5,
-	"bike" : 6,
-	"bike1" : 6,
-	"redbike" : 6,
-	"bikered" : 6,
-	"bike2" : 7,
-	"bluebike" : 7,
-	"bikeblue" : 7,
-	"bot" : 8,
-	"bluebot" : 8,
-	"botblue" : 8,
-	"manbot" : 8,
-	"botman" : 8,
-	"pinkbot" : 9,
-	"botpink" : 9,
-	"girlbot" : 9,
-	"botgirl" : 9,
-	"cat" : 11,
-	"dog" : 10,
-}
-var tchar = prompt("Player:\n0:cheese man\n1:red man\n2:green man\n3:tshirt? man\n4:pink girl\n5:blue girl\n6:red bike\n7:blue bike\n8:blue bot\n9:pink bot\n10:dog\n11:cat","");
-
-if (tchar){
-if (characters[tchar])
-	mee.char = +tchar;
-else{
-	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
-		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
-	else
-		mee.char = 0;
-}
-}
