@@ -1236,7 +1236,7 @@ setInterval(function() {
 		}
 		if (keysdown.right)
 		{
-			mee.dir = true;
+
 			if (jump.up){
 				if (mee.xv < 0)
 					mee.xv += 2*spd*dt;
@@ -1247,7 +1247,7 @@ setInterval(function() {
 		}
 		if (keysdown.left)
 		{
-			mee.dir = false;
+
 		    if (jump.up){
 				if (mee.xv > 0)
 					mee.xv -= 2*spd*dt;
@@ -1256,6 +1256,19 @@ setInterval(function() {
 			else
 				mee.xv -= spd*dt;
 		}
+    if (keysdown.left && !keysdown.pleft){
+        mee.dir=false;
+    }
+    if (keysdown.right && !keysdown.pright){
+        mee.dir=true;
+    }
+
+    if (keysdown.right && keysdown.pleft && !keysdown.left){
+        mee.dir=true;
+    }
+    if (keysdown.left && keysdown.pright && !keysdown.right){
+        mee.dir=false;
+    }
 
 	keysdown.pup = keysdown.up;
 	keysdown.pleft = keysdown.left;
