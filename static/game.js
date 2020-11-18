@@ -1199,7 +1199,7 @@ setInterval(function() {
         sjump.pause();
         sjump.currentTime = 0;
         sjump.play();
-      }
+        }
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 
