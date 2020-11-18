@@ -1060,10 +1060,12 @@ setInterval(function() {
   mee.hp = Math.min(100,mee.hp);
 
   if ((((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1) && !pslide){
+    if (!isMobile)
     sslide.play();
 
   }
   if ((!(((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1))&&pslide){
+    if (!isMobile)
     sslide.pause();
   }
   pslide = ((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1;
@@ -1089,18 +1091,22 @@ setInterval(function() {
 
 		if (mee.anim == 10){
 			mee.anim = 12;
+      if (!isMobile){
       sfoot.pause();
       sfoot.currentTime = 0;
       sfoot.play();
+      }
     }
 		else if (mee.anim == 12)
 			mee.anim = 10;
 
 		if (mee.anim == 11){
 			mee.anim = 13;
+      if (!isMobile){
       sfoot.pause();
       sfoot.currentTime = 0;
       sfoot.play();
+      }
     }
 		else if (mee.anim == 13)
 			mee.anim = 11;
@@ -1189,9 +1195,11 @@ setInterval(function() {
 
 			if (jump.up){
 				mee.yv = -10;
+        if (!isMobile){
         sjump.pause();
         sjump.currentTime = 0;
         sjump.play();
+      }
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 
@@ -1203,9 +1211,11 @@ setInterval(function() {
 						mee.yv = -10;
 						mee.xv = 7;
 					}
+          if (!isMobile){
           sjump.pause();
           sjump.currentTime = 0;
           sjump.play();
+          }
 				}else if (djump){
 
             if (mee.dir)
@@ -1214,9 +1224,11 @@ setInterval(function() {
               mee.xv = -10;
             mee.yv = -10;
             djump = false;
+            if (!isMobile){
             sjump.pause();
             sjump.currentTime = 0;
             sjump.play();
+            }
 
 				}
 
@@ -1226,9 +1238,11 @@ setInterval(function() {
 		if (keysdown.use)
 		{
 		if (cool <= 0.0){
+      if (!isMobile){
       spunch.pause();
       spunch.currentTime = 0;
       spunch.play();
+      }
 			if (itemtypes[sitm].stk>0){
 				itemtypes[sitm].func(mee);
 				cool = itemtypes[sitm].cool;
