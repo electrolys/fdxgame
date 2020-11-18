@@ -106,7 +106,7 @@ function collide(pl,r){
 //    collide(pl,{top:pl2.y-0.5,bottom:pl2.y+0.5,right:pl2.x+0.5,left:pl2.x-0.5})
 //}
 
-var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+var isMobile = !!(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
 var ongoingTouches = [];
 var canvas = document.getElementById('canvas');
 
@@ -1192,17 +1192,15 @@ setInterval(function() {
       djump = true;
 		if (keysdown.up && !keysdown.pup)
 		{
-
-			if (jump.up){
-				mee.yv = -10;
-        if (!isMobile){
+      if (!isMobile && (((jump.left&& mee.dir) || (jump.right&& !mee.dir)) || jump.up || djump)){
         sjump.pause();
         sjump.currentTime = 0;
         sjump.play();
-        }
+      }
+			if (jump.up){
+				mee.yv = -10;
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
-
 					if (jump.left&& mee.dir){
 						mee.yv = -10;
 						mee.xv = -7;
@@ -1211,11 +1209,6 @@ setInterval(function() {
 						mee.yv = -10;
 						mee.xv = 7;
 					}
-          if (!isMobile){
-          sjump.pause();
-          sjump.currentTime = 0;
-          sjump.play();
-          }
 				}else if (djump){
 
             if (mee.dir)
@@ -1224,11 +1217,6 @@ setInterval(function() {
               mee.xv = -10;
             mee.yv = -10;
             djump = false;
-            if (!isMobile){
-            sjump.pause();
-            sjump.currentTime = 0;
-            sjump.play();
-            }
 
 				}
 
@@ -1239,9 +1227,9 @@ setInterval(function() {
 		{
 		if (cool <= 0.0){
       if (!isMobile){
-      spunch.pause();
-      spunch.currentTime = 0;
-      spunch.play();
+        spunch.pause();
+        spunch.currentTime = 0;
+        spunch.play();
       }
 			if (itemtypes[sitm].stk>0){
 				itemtypes[sitm].func(mee);
