@@ -746,17 +746,17 @@ var characters = [
 	characters[10].src = 'static/img/dog.png'
 	characters[11].src = 'static/img/cat.png'
 var spsize;
-if (isMobile)
 spsize = 64;
-else
-spsize = 32;
+
 var cool = 0.0;
 setInterval(function() {
 	canvas.width  = window.innerWidth;
 	canvas.height = window.innerHeight;
     context.clearRect(0, 0, canvas.width, canvas.height);
+    if (isMobile)
     plsize = canvas.height/16;
-
+    else
+    plsize = canvas.height/24;
     var trectangle = {top:(-canvas.height/2/plsize+mee.y)-0.3,bottom:(canvas.height/2/plsize+mee.y)+0.3,left:(-canvas.width/2/plsize+mee.x)-0.3,right:(canvas.width/2/plsize+mee.x)+0.3};
 
 	var drawnd = []
