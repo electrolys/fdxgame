@@ -745,8 +745,11 @@ var characters = [
 
 	characters[10].src = 'static/img/dog.png'
 	characters[11].src = 'static/img/cat.png'
-var spsize = 64;
-
+var spsize;
+if (isMobile)
+spsize = 64;
+else
+spsize = 32;
 var cool = 0.0;
 setInterval(function() {
 	canvas.width  = window.innerWidth;
