@@ -674,7 +674,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"food blek",
-		cool:10,
+		cool:5,
 		func:function(pl){
 			pl.hp+=1;
 			pl.hp = Math.min(100,pl.hp);
@@ -684,7 +684,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"dairy",
-		cool:10,
+		cool:5,
 		func:function(pl){
 			pl.hp+=10;
 			pl.hp = Math.min(100,pl.hp);
@@ -694,7 +694,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"cheese",
-		cool:10,
+		cool:5,
 		func:function(pl){
 			pl.hp+=25;
 			pl.hp = Math.min(100,pl.hp);
@@ -704,7 +704,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"cheese cake",
-		cool:10,
+		cool:2,
 		func:function(pl){
 			pl.hp=100;
 			itemtypes[sitm].stk = 0;
@@ -729,22 +729,22 @@ var characters = [
 ];
 
 
-	characters[0].src = 'static/img/man1.png';
-	characters[1].src = 'static/img/man2.png';
-	characters[2].src = 'static/img/man3.png';
-	characters[3].src = 'static/img/tman.png'
+characters[0].src = 'static/img/man1.png';
+characters[1].src = 'static/img/man2.png';
+characters[2].src = 'static/img/man3.png';
+characters[3].src = 'static/img/tman.png'
 
-	characters[4].src = 'static/img/girl1.png'
-	characters[5].src = 'static/img/girl2.png'
+characters[4].src = 'static/img/girl1.png'
+characters[5].src = 'static/img/girl2.png'
 
-	characters[6].src = 'static/img/bike.png';
-	characters[7].src = 'static/img/bike2.png';
+characters[6].src = 'static/img/bike.png';
+characters[7].src = 'static/img/bike2.png';
 
-	characters[8].src = 'static/img/bot.png';
-	characters[9].src = 'static/img/pinkbot.png';
+characters[8].src = 'static/img/bot.png';
+characters[9].src = 'static/img/pinkbot.png';
 
-	characters[10].src = 'static/img/dog.png'
-	characters[11].src = 'static/img/cat.png'
+characters[10].src = 'static/img/dog.png'
+characters[11].src = 'static/img/cat.png'
 var spsize;
 spsize = 64;
 
@@ -991,17 +991,9 @@ var listc = {
 	"man":1,
 	"redman":1,
 	"manred":1,
-	"mario":1,
-	"mario?":1,
-	"mario??":1,
-	"mario???":1,
 	"man3" : 2,
 	"greenman" : 2,
 	"mangreen" : 2,
-	"luigi" : 2,
-	"luigi?" : 2,
-	"luigi??" : 2,
-	"luigi???" : 2,
 	"tman" : 3,
 	"tshirtman" : 3,
 	"mantshirt" : 3,
