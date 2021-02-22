@@ -941,11 +941,11 @@ setInterval(function() {
 	context.fillText("<"+mee.name+">", (canvas.width)-context.measureText("<"+mee.name+">  ").width,16);
 	context.fillStyle = 'rgba(0,0,0,0.6)';
 	context.fillText("online:"+tpls, 8,canvas.height-16);
-	context.fillText(chat[0], 8,canvas.height-48-10);
-	context.fillText(chat[1], 8,canvas.height-64-10);
-	context.fillText(chat[2], 8,canvas.height-80-10);
-	context.fillText(chat[3], 8,canvas.height-96-10);
-	context.fillText(chat[4], 8,canvas.height-112-10);
+	context.fillText(chat[0], 8,canvas.height-68);
+	context.fillText(chat[1], 8,canvas.height-84);
+	context.fillText(chat[2], 8,canvas.height-100);
+	context.fillText(chat[3], 8,canvas.height-116);
+	context.fillText(chat[4], 8,canvas.height-132);
 	context.fillStyle = 'rgba(0,0,0,0.6)';
 	if (temppl[0])
 	context.fillText("1st [ "+temppl[0].name+":"+temppl[0].score+" ]", (canvas.width)-context.measureText("1st [ "+temppl[0].name+":"+temppl[0].score+" ]  ").width,canvas.height-48);
