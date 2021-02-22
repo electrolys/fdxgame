@@ -33,7 +33,10 @@ io.on('connection', function(socket) {
     };
   });
   socket.on('d', function(id) {
-    io.sockets.emit('score',id)
+    io.sockets.emit('score',id);
+  });
+  socket.on('chat', function(message) {
+    io.sockets.emit('c',message);
   });
   socket.on('u', function(data) {
     players[socket.id] = data;
