@@ -12,8 +12,8 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <input type="text" id="chatbox" name="chatbox" style="position: absolute; z-index: 1; left: 8px; bottom: 32px; font-size:14px;height:16px;width:100px;">
-	<input onclick="socket.emit('chat',mee.name+':'+document.getElementById('inputId').value);" type="submit" value="OK" style="position: absolute; z-index: 1; left: 108px;font-size:14px; bottom: 32px; width:50px; height:34px;">
+    <input type="text" id="chatbox" name="chatbox" style="position: absolute; z-index: 1; left: 8px; bottom: 38px; font-size:14px;height:14px;width:100px;">
+	<input onclick="socket.emit('chat',mee.name+':'+document.getElementById('chatbox').value);" type="submit" value="OK" style="position: absolute; z-index: 1; left: 108px;font-size:14px; bottom: 38px; width:50px; height:34px;">
 
 </body>
 
