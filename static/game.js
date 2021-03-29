@@ -22,13 +22,7 @@ function loadTextFileAjaxSync(filePath, mimeType)
   }
 }
 
-function checkFlag(flag) {
-    if(flag == false) {
-       window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
-    } else {
-      /* do something*/
-    }
-}
+
 
 function loadJSON(filePath) {
   // Load json file;
@@ -1063,7 +1057,8 @@ var listc = {
 //}
 
 var startgame = false;
-checkFlag(startgame);
+
+
 
 var lastUpdateTime = performance.now();
 
@@ -1078,7 +1073,12 @@ var thp = 0.0;
 var pslide = false;
 var djump = false;
 sslide.loop = true;
-setInterval(function() {
+function checkFlag() {
+    if(startgame == false) {
+       window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+    lastUpdateTime = performance.now();
+      setInterval(function() {
   mee.score = Math.max(0,mee.score);
   mee.hp = Math.min(100,mee.hp);
 
@@ -1456,3 +1456,7 @@ setInterval(function() {
     lastUpdateTime = currentTime;
 
 }, 1000/60);
+    }
+}
+
+checkFlag();
