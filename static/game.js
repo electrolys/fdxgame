@@ -1077,6 +1077,7 @@ function checkFlag() {
     if(startgame == false) {
        window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
     } else {
+    document.getElementById('startbutton').remove();
     lastUpdateTime = performance.now();
       setInterval(function() {
   mee.score = Math.max(0,mee.score);
