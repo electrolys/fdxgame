@@ -1000,7 +1000,7 @@ spunch.volume = 0.2;
 sjump.volume = 0.2;
 sslide.volume = 0.2;
 
-mee.name = prompt("Username:\ncontrols:z/space/up-jump   x-use item   c-change item   left/right-move", "");
+//mee.name = prompt("Username:\ncontrols:z/space/up-jump   x-use item   c-change item   left/right-move", "");
 var listc = {
 	"man1" : 0,
 	"cheeseman" : 0,
@@ -1041,19 +1041,21 @@ var listc = {
 	"cat" : 11,
 	"dog" : 10,
 }
-var tchar = prompt("Player:\n0:cheese man\n1:red man\n2:green man\n3:tshirt? man\n4:pink girl\n5:blue girl\n6:red bike\n7:blue bike\n8:blue bot\n9:pink bot\n10:dog\n11:cat","");
+//var tchar = prompt("Player:\n0:cheese man\n1:red man\n2:green man\n3:tshirt? man\n4:pink girl\n5:blue girl\n6:red bike\n7:blue bike\n8:blue bot\n9:pink bot\n10:dog\n11:cat","");
 
-if (tchar){
-if (characters[tchar])
-	mee.char = +tchar;
-else{
-	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
-		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
-	else
-		mee.char = 0;
-}
-}
+//if (tchar){
+//if (characters[tchar])
+//	mee.char = +tchar;
+//else{
+//	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
+//		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
+//	else
+//		mee.char = 0;
+//}
+//}
 
+var startgame = false;
+while (!startgame){}
 
 var lastUpdateTime = performance.now();
 
