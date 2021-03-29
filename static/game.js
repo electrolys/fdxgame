@@ -22,6 +22,14 @@ function loadTextFileAjaxSync(filePath, mimeType)
   }
 }
 
+function checkFlag(flag) {
+    if(flag == false) {
+       window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
+    } else {
+      /* do something*/
+    }
+}
+
 function loadJSON(filePath) {
   // Load json file;
   var json = loadTextFileAjaxSync(filePath, "application/json");
@@ -1055,7 +1063,7 @@ var listc = {
 //}
 
 var startgame = false;
-while (!startgame){}
+checkFlag(startgame);
 
 var lastUpdateTime = performance.now();
 
