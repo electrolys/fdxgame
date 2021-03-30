@@ -1227,11 +1227,11 @@ function checkFlag() {
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 					if (jump.left&& mee.dir){
 						mee.yv = -10;
-						mee.xv = -7;
+						mee.xv = math.min(-7,mee.xv-7);
 					}
 					if (jump.right&& !mee.dir){
 						mee.yv = -10;
-						mee.xv = 7;
+						mee.xv = math.max(7,mee.xv+7);
 					}
 				}else if (djump){
 
