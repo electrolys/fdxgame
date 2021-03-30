@@ -517,7 +517,7 @@ var itemtypes = [
 		name:"good pubg weapon",
 		cool:0.75,
 		func:function(pl){
-		var atk = 4;
+		var atk = 3;
 		if (pl.dir){
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -539,7 +539,7 @@ var itemtypes = [
 		name:"great pubg weapon",
 		cool:0.75,
 		func:function(pl){
-		var atk = 8;
+		var atk = 5;
 		if (pl.dir){
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -561,7 +561,7 @@ var itemtypes = [
 		name:"master pubg weapon",
 		cool:0.75,
 		func:function(pl){
-		var atk = 16;
+		var atk = 10;
 		if (pl.dir){
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -586,7 +586,7 @@ var itemtypes = [
 		cool:0.25,
 		func:function(pl){
 		var atk = 10;
-		pl.hp/=2;
+		pl.hp/=1.3;
 		if (pl.hp < 1)
 			pl.hp = -1;
 		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
@@ -599,7 +599,7 @@ var itemtypes = [
 		cool:0.25,
 		func:function(pl){
 		var atk = 25;
-		pl.hp/=2;
+		pl.hp/=1.3;
 		if (pl.hp < 1)
 			pl.hp = -1;
 		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
@@ -612,7 +612,7 @@ var itemtypes = [
 		cool:0.25,
 		func:function(pl){
 		var atk = 50;
-		pl.hp/=2;
+		pl.hp/=1.3;
 		if (pl.hp < 1)
 			pl.hp = -1;
 		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
