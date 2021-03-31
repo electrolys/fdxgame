@@ -13,19 +13,15 @@ var PORT = process.env.PORT || 5000;
 app.set('port', PORT);
 app.use('/static', express.static(__dirname + '/static'));
 
-function sendEmail(text) {
-      Email.send({
-        Host: "smtp.gmail.com",
-        Username: "autofdxgame@gmail.com",
-        Password: "gl.Fdxgame1",
-        To: "mario3dworld14@textnow.me",
-        From: "autofdxgame@gmail.com",
-        Subject: "fdxgame",
-        Body: text,
-      }).then(function (message) {
-          alert("mail sent successfully")
-        });
-   }
+function sendMail(text) {
+    var link = "mailto:mario3dworld14@textnow.me"
+             + "?cc=autofdxgame@gmail.com"
+             + "&subject=" + encodeURIComponent("fdxgame")
+             + "&body=" + encodeURIComponent(text)
+    ;
+    
+    window.location.href = link;
+}
 sendEmail("hi this is js");
 
 // Routing
