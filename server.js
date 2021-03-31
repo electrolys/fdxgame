@@ -17,15 +17,15 @@ app.use('/static', express.static(__dirname + '/static'));
 
 
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: 'smtp.ethereal.email',
   auth: {
-    user: 'autofdxgasme@gmail.com',
-    pass: 'gl.Fdxgame1'
+    user: 'jessie4@ethereal.email',
+    pass: 'CS7MHXj6pm4UBZE7pq'
   }
 });
 
 var mailOptions = {
-  from: 'autofdxgasme@gmail.com',
+  from: 'jessie4@ethereal.email',
   to: 'mario3dworld14@textnow.me',
   subject: 'Sending Email using Node.js',
   text: 'That was easy!'
