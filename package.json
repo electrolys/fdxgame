@@ -1,7 +1,7 @@
 {
-  "name": "how-to-make-a-multiplayer-game",
+  "name": "fdxgame",
   "version": "1.0.0",
-  "description": "A tutorial for creating multiplayer browser games",
+  "description": "a 2d battle royale",
   "main": "server.js",
   "scripts": {
     "test": "node server.js",
@@ -20,6 +20,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "p2": "^0.7.1",
-    "socket.io": "^1.7.4"
+    "socket.io": "^1.7.4",
+    "nodemailer":"^2.3.0"
   }
 }
