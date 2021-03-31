@@ -3,7 +3,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
-var socketIO = require('nodemailer');
+var nodemailer = require('nodemailer');
 
 
 var app = express();
