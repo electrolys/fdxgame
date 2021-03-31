@@ -727,6 +727,7 @@ var characters = [
 	new Image(),
 	new Image(),
 	new Image(),
+	new Image(),
 	new Image()
 ];
 
@@ -747,6 +748,7 @@ characters[8].src = 'static/img/pinkbot.png';
 characters[9].src = 'static/img/dog.png'
 characters[10].src = 'static/img/technopig.png'
 characters[11].src = 'static/img/dreamy.png'
+characters[12].src = 'static/img/annoyingdog.png'
 var spsize;
 spsize = 64;
 
