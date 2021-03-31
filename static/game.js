@@ -675,8 +675,8 @@ var itemtypes = [
 
 	{
 		stk:0,
-		name:"food blek",
-		cool:5,
+		name:"normal food",
+		cool:4,
 		func:function(pl){
 			pl.hp+=1;
 			pl.hp = Math.min(100,pl.hp);
@@ -686,7 +686,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"dairy",
-		cool:5,
+		cool:4,
 		func:function(pl){
 			pl.hp+=10;
 			pl.hp = Math.min(100,pl.hp);
@@ -696,7 +696,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"cheese",
-		cool:5,
+		cool:4,
 		func:function(pl){
 			pl.hp+=25;
 			pl.hp = Math.min(100,pl.hp);
