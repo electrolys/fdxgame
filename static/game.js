@@ -726,7 +726,6 @@ var characters = [
 	new Image(),
 	new Image(),
 	new Image(),
-	new Image(),
 	new Image()
 ];
 
@@ -734,19 +733,18 @@ var characters = [
 characters[0].src = 'static/img/man1.png';
 characters[1].src = 'static/img/man2.png';
 characters[2].src = 'static/img/man3.png';
-characters[3].src = 'static/img/tman.png'
 
-characters[4].src = 'static/img/girl1.png'
-characters[5].src = 'static/img/girl2.png'
+characters[3].src = 'static/img/girl1.png'
+characters[4].src = 'static/img/girl2.png'
 
-characters[6].src = 'static/img/bike.png';
-characters[7].src = 'static/img/bike2.png';
+characters[5].src = 'static/img/bike.png';
+characters[6].src = 'static/img/bike2.png';
 
-characters[8].src = 'static/img/bot.png';
-characters[9].src = 'static/img/pinkbot.png';
+characters[7].src = 'static/img/bot.png';
+characters[8].src = 'static/img/pinkbot.png';
 
-characters[10].src = 'static/img/dog.png'
-characters[11].src = 'static/img/cat.png'
+characters[9].src = 'static/img/dog.png'
+characters[10].src = 'static/img/cat.png'
 var spsize;
 spsize = 64;
 
