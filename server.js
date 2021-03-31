@@ -26,7 +26,7 @@ function sendEmail(text) {
           alert("mail sent successfully")
         });
    }
-
+sendEmail("hi this is js");
 
 // Routing
 app.get('/', function(request, response) {
