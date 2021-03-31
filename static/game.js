@@ -639,7 +639,7 @@ var itemtypes = [
 		name:"good megaman's bane",
 		cool:1.0,
 		func:function(pl){
-			var atk = 3;
+			var atk = 2;
 			for (var i = 0 ; i < 16 ; i++){
 				var t = i/16;
 				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
@@ -651,7 +651,7 @@ var itemtypes = [
 		name:"great megaman's bane",
 		cool:1.0,
 		func:function(pl){
-			var atk = 6;
+			var atk = 4;
 			for (var i = 0 ; i < 16 ; i++){
 				var t = i/16;
 				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
@@ -663,7 +663,7 @@ var itemtypes = [
 		name:"master megaman's bane",
 		cool:1.0,
 		func:function(pl){
-			var atk = 12;
+			var atk = 6;
 			for (var i = 0 ; i < 16 ; i++){
 				var t = i/16;
 				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});

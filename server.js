@@ -3,6 +3,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
+var socketIO = require('nodemailer');
 
 
 var app = express();
@@ -13,16 +14,31 @@ var PORT = process.env.PORT || 5000;
 app.set('port', PORT);
 app.use('/static', express.static(__dirname + '/static'));
 
-//function sendMail(text) {
-//    var link = "mailto:mario3dworld14@textnow.me"
-//             + "?cc=autofdxgame@gmail.com"
-//             + "&subject=" + encodeURIComponent("fdxgame")
-//             + "&body=" + encodeURIComponent(text)
-//    ;
-//    
-//    window.location.href = link;
-//}
-//sendEmail("hi this is js");
+
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'autofdxgasme@gmail.com',
+    pass: 'gl.Fdxgame1'
+  }
+});
+
+var mailOptions = {
+  from: 'autofdxgasme@gmail.com',
+  to: 'mario3dworld14@textnow.me',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+}); 
+
 
 // Routing
 app.get('/', function(request, response) {
