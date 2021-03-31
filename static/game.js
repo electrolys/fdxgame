@@ -1236,9 +1236,9 @@ function checkFlag() {
 				}else if (djump){
 
             if (mee.dir)
-              mee.xv = Math.max(10,mee.xv+10);
+              mee.xv = Math.max(10,mee.xv+5);
             else
-              mee.xv = Math.min(-10,mee.xv-10);
+              mee.xv = Math.min(-10,mee.xv-5);
             mee.yv = -10;
             djump = false;
 
