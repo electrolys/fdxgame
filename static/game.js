@@ -394,7 +394,7 @@ var itemtypes = [
 		name:"sword",
 		cool:0.75,
 		func:function(pl){
-		var atk = 10;
+		var atk = 15;
 
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
@@ -413,7 +413,7 @@ var itemtypes = [
 		name:"great sword",
 		cool:0.75,
 		func:function(pl){
-		var atk = 20;
+		var atk = 30;
 
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
@@ -432,7 +432,7 @@ var itemtypes = [
 		name:"master sword",
 		cool:0.75,
 		func:function(pl){
-		var atk = 30;
+		var atk = 50;
 
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
@@ -452,7 +452,7 @@ var itemtypes = [
 		name:"cutter",
 		cool:0.6,
 		func:function(pl){
-			var atk = 5;
+			var atk = 8;
 
 
 			if (pl.dir)
@@ -466,7 +466,7 @@ var itemtypes = [
 		name:"great cutter",
 		cool:0.6,
 		func:function(pl){
-			var atk = 10;
+			var atk = 15;
 
 
 			if (pl.dir)
@@ -480,7 +480,7 @@ var itemtypes = [
 		name:"master cutter",
 		cool:0.6,
 		func:function(pl){
-			var atk = 20;
+			var atk = 30;
 
 
 			if (pl.dir)
@@ -493,7 +493,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"pubg weapon",
-		cool:0.75,
+		cool:1.4,
 		func:function(pl){
 		var atk = 1;
 		if (pl.dir){
@@ -515,7 +515,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"good pubg weapon",
-		cool:0.75,
+		cool:1.4,
 		func:function(pl){
 		var atk = 3;
 		if (pl.dir){
@@ -537,7 +537,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"great pubg weapon",
-		cool:0.75,
+		cool:1.4,
 		func:function(pl){
 		var atk = 5;
 		if (pl.dir){
@@ -559,7 +559,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"master pubg weapon",
-		cool:0.75,
+		cool:1.4,
 		func:function(pl){
 		var atk = 10;
 		if (pl.dir){
@@ -782,6 +782,7 @@ setInterval(function() {
 			drawnd.push(decor[i]);
 		}
 	}
+	context.
 	context.fill();
 	if (drawnd[0])context.fillStyle = drawnd[0].col;
 	context.beginPath();
@@ -811,6 +812,8 @@ setInterval(function() {
 
     }
 	context.fill();
+	
+	
 	if (drawn[0])context.fillStyle = drawn[0].col;
 	context.beginPath();
     for (var i = 0; i < drawn.length; i++) {
@@ -824,7 +827,13 @@ setInterval(function() {
             context.beginPath();
 			}
     }
+	context.strokeStyle = "rgb(120,120,120)";
+    context.beginPath();
+	for (var i = 0; i < drawn.length; i++) {
+        context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2)+plsize/5,((drawn[i].top-mee.y)*plsize+canvas.height/2)+plsize/5,(drawn[i].right-drawn[i].left)*plsize,(drawn[i].bottom-drawn[i].top)*plsize);
 
+    }
+	context.stroke();
 
 	var drawnt = []
 	for (var i = 0; i < triggers.length; i++) {
