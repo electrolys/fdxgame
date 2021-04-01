@@ -782,7 +782,6 @@ setInterval(function() {
 			drawnd.push(decor[i]);
 		}
 	}
-	context.
 	context.fill();
 	if (drawnd[0])context.fillStyle = drawnd[0].col;
 	context.beginPath();
