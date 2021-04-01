@@ -826,13 +826,6 @@ setInterval(function() {
             context.beginPath();
 			}
     }
-	context.strokeStyle = "rgb(255,255,255)";
-    context.beginPath();
-	for (var i = 0; i < drawn.length; i++) {
-        context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2),((drawn[i].top-mee.y)*plsize+canvas.height/2),(drawn[i].right-drawn[i].left)*plsize,(drawn[i].bottom-drawn[i].top)*plsize);
-
-    }
-	context.stroke();
 
 	var drawnt = []
 	for (var i = 0; i < triggers.length; i++) {
