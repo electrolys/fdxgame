@@ -456,9 +456,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv+2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv-2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 		}
 	}//cutter
 	,{
@@ -470,9 +470,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv+2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv-2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 		}
 	}//good cutter
 	,{
@@ -484,9 +484,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv+2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv-2,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
 		}
 	}//best cutter
 	,
