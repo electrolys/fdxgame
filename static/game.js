@@ -346,9 +346,9 @@ var itemtypes = [
 		func:function(pl){
 		var atk = 1;
 		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		}
 	}//pew pew
 	,{
@@ -358,9 +358,9 @@ var itemtypes = [
 		func:function(pl){
 		var atk = 5;
 		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		}
 	}//good pew pew
 	,{
@@ -370,9 +370,9 @@ var itemtypes = [
 		func:function(pl){
 		var atk = 10;
 		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		}
 	}//great pew pew
 	,{
@@ -382,9 +382,9 @@ var itemtypes = [
 		func:function(pl){
 		var atk = 20;
 		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:3,atk:atk,width:0.3,height:0.3});
+			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		}
 	}//best pew pew
 	,
@@ -455,9 +455,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 		}
 	}//cutter
 	,{
@@ -469,9 +469,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 		}
 	}//good cutter
 	,{
@@ -483,9 +483,9 @@ var itemtypes = [
 
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:1.7,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
 		}
 	}//best cutter
 	,
