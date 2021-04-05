@@ -890,8 +890,7 @@ setInterval(function() {
 				context.drawImage(characters[player.char],0,player.anim*spsize,spsize,spsize,((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2,plsize,plsize);
 			}else
 				{
-					var num = 0.1*Math.sqrt((player.x-mee.x)*(player.x-mee.x)+(player.y-mee.y)*(player.y-mee.y));
-					var num = ((1.0/num)>0.1?num:0);
+					var num = Math.min(0.1*Math.sqrt((player.x-mee.x)*(player.x-mee.x)+(player.y-mee.y)*(player.y-mee.y)),10);
 					context.fillStyle = 'white';
 					context.beginPath();
 					context.arc(Math.max(Math.min(((player.x-mee.x)*plsize+canvas.width/2),canvas.width),0),Math.max(Math.min(((player.y-mee.y)*plsize+canvas.height/2),canvas.height),0), plsize/(1.0*num), 0, 2 * Math.PI);
