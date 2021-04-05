@@ -79,7 +79,7 @@ function collide(pl,r){
 			jump.up=true;
          }else{
             if (pl.x-((r.left+r.right)/2.0) < 0){
-                if (Math.abs(r.left-0.5-pl.x) < 0.6){
+                if (Math.abs(r.left-0.5-pl.x) < 0.59){
                     pl.x = r.left-0.499;
                     if (pl.xv>0.0)
                         pl.xv = 0.0;
@@ -90,7 +90,7 @@ function collide(pl,r){
 						pl.yv = 0.0;
                 }
             }else{
-                if (Math.abs(r.right+0.5-pl.x) < 0.6){
+                if (Math.abs(r.right+0.5-pl.x) < 0.59){
                     pl.x = r.right+0.499;
                     if (pl.xv<0.0)
                         pl.xv = 0.0;
