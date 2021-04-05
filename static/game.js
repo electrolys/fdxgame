@@ -865,7 +865,6 @@ setInterval(function() {
         tpls++;
 		if (id != socket.id){
 			var player = cplayers[id] || {};
-			if (player == {}) continue;
 			context.fillStyle = 'red';
 			context.beginPath();
 			
@@ -903,6 +902,7 @@ setInterval(function() {
 
 				}
         }else {
+        	var player = cplayers[id] || {};
         	context.fillStyle = 'rgba(0,255,0,0.25)';
 			context.beginPath();
 			for (var i = 0; i < player.pjs.length; i++) {
