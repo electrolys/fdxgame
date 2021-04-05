@@ -71,8 +71,8 @@ var jump = {left:false,right:false,up:false,dash:false};
 function collide(pl,r){
     if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){
 		var roff=Math.abs(pl.x-0.5-r.right);
-		var loff=Math.abs(pl.x+0.5-r.left);
-		if (Math.abs(r.top-0.5-pl.y) < 0.6 && (loff>0.01||jump.up) && (roff>0.01||jump.up)){
+		var loff=Math.abs(pl.x+0.5-r.left);//&& (loff>0.01||jump.up) && (roff>0.01||jump.up)
+		if (Math.abs(r.top-0.5-pl.y) < 0.6 ){
             pl.y = r.top-0.499;
             if (pl.yv>0.0)
 				pl.yv = 0.0;
