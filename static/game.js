@@ -900,6 +900,14 @@ setInterval(function() {
 					context.fill();
 
 				}
+        }else {
+        	context.fillStyle = 'rgba(0,255,0,0.25)';
+			context.beginPath();
+			for (var i = 0; i < player.pjs.length; i++) {
+				context.rect(((player.pjs[i].x-mee.x)*plsize+canvas.width/2)-plsize*player.pjs[i].width,((player.pjs[i].y-mee.y)*plsize+canvas.height/2)-plsize*player.pjs[i].height,player.pjs[i].width*2*plsize,player.pjs[i].height*2*plsize);
+
+			}
+            context.fill();
         }
     }
 
