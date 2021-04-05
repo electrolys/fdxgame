@@ -772,7 +772,7 @@ setInterval(function() {
     if (isMobile)
     plsize = canvas.height/16;
     else
-    plsize = 64;
+    plsize = canvas.height/24;
     var trectangle = {top:(-canvas.height/2/plsize+mee.y)-0.3,bottom:(canvas.height/2/plsize+mee.y)+0.3,left:(-canvas.width/2/plsize+mee.x)-0.3,right:(canvas.width/2/plsize+mee.x)+0.3};
 
 	var drawnd = []
