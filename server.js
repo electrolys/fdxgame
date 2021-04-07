@@ -3,7 +3,6 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
-var nodemailer = require('nodemailer');
 
 
 var app = express();
@@ -15,29 +14,6 @@ app.set('port', PORT);
 app.use('/static', express.static(__dirname + '/static'));
 
 
-
-var transporter = nodemailer.createTransport({
-  service: 'smtp.ethereal.email',
-  auth: {
-    user: 'jessie4@ethereal.email',
-    pass: 'CS7MHXj6pm4UBZE7pq'
-  }
-});
-
-var mailOptions = {
-  from: 'jessie4@ethereal.email',
-  to: 'mario3dworld14@textnow.me',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    //console.log(error);
-  } else {
-    //console.log('Email sent: ' + info.response);
-  }
-}); 
 
 
 // Routing
