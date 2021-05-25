@@ -729,6 +729,7 @@ var characters = [
 	new Image(),
 	new Image(),
     new Image(),
+    new Image(),
 	new Image()
 ];
 
