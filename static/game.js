@@ -69,17 +69,17 @@ var jump = {left:false,right:false,up:false,dash:false};
 
 
 function collide(pl,r){
-    if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5,left:pl.x-0.5},r)){
+    if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5-(jump.up?0.02:0.0),left:pl.x-0.5+(jump.up?0.02:0.0)},r)){
 		var roff=Math.abs(pl.x-0.5-r.right);
 		var loff=Math.abs(pl.x+0.5-r.left);
-		if (Math.abs(r.top-0.5-pl.y) < 0.6 && (loff>0.001||jump.up) && (roff>0.001||jump.up) && pl.yv>-0.1){
+		if (Math.abs(r.top-0.5-pl.y) < 0.6 && (loff>0.01||jump.up) && (roff>0.01||jump.up) && pl.yv>-0.1){
             pl.y = r.top-0.499;
 			pl.yv = 0.0;
 			jump.up=true;
          }else{
             if (pl.x-((r.left+r.right)/2.0) < 0){
                 if (Math.abs(r.left-0.5-pl.x) < 0.6){
-                    pl.x = r.left-0.499;
+                    pl.x = r.left-0.49;
                     if (pl.xv>0.0)
                         pl.xv = 0.0;
 					jump.left=true;
@@ -90,7 +90,7 @@ function collide(pl,r){
                 }
             }else{
                 if (Math.abs(r.right+0.5-pl.x) < 0.6){
-                    pl.x = r.right+0.499;
+                    pl.x = r.right+0.49;
                     if (pl.xv<0.0)
                         pl.xv = 0.0;
 					jump.right=true;
