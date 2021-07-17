@@ -72,10 +72,23 @@ function collide(pl,r){
     if (intersectRect({top:pl.y-0.5,bottom:pl.y+0.5,right:pl.x+0.5-(jump.up?0.02:0.0),left:pl.x-0.5+(jump.up?0.02:0.0)},r)){
 		var roff=Math.abs(pl.x-0.5-r.right);
 		var loff=Math.abs(pl.x+0.5-r.left);
-		if (Math.abs(r.top-0.5-pl.y) < 0.6 && (loff>0.01||jump.up) && (roff>0.01||jump.up) && pl.yv>-0.1){
-            pl.y = r.top-0.499;
-			pl.yv = 0.0;
-			jump.up=true;
+		if (Math.abs(r.top-0.5-pl.y) < 0.6 && pl.yv>-0.1){
+            if (roff < 0.1 && jump.right){
+                pl.x = r.right+0.49;
+                if (pl.xv<0.0)
+                    pl.xv = 0.0;
+				jump.right=true;
+            }else if (loff < 0.1 && jump.left){
+                pl.x = r.left-0.49;
+                if (pl.xv>0.0)
+                    pl.xv = 0.0;
+				jump.left=true;
+            }else
+            {
+                pl.y = r.top-0.499;
+			    pl.yv = 0.0;
+			    jump.up=true;
+            }
          }else{
             if (pl.x-((r.left+r.right)/2.0) < 0){
                 if (Math.abs(r.left-0.5-pl.x) < 0.6){
@@ -222,11 +235,11 @@ setInterval(function() {
 
 var rawlvl = loadJSON("static/level.json");
 
-var lvl = rawlvl["map"]["objectgroup"][1]["object"];
-var lvld = rawlvl["map"]["objectgroup"][0]["object"];
-var lvlt = rawlvl["map"]["objectgroup"][2]["object"];
-var ground = [];
-var decor = [];
+var ground = rawlvl["ground"];
+var decor = rawlvl["decor"];
+var triggers = rawlvl["triggers"];
+if (!triggers)
+	triggers = [];
 var tfuncs = [
 		function(pl){console.log("trig")}
 
@@ -247,42 +260,13 @@ tfuncs.push(function(pl){pl.hp = pl.hp / 2;if (pl.hp < 1) pl.hp = -1;});
 tfuncs.push(function(pl){pl.hp = pl.hp / 4;if (pl.hp < 1) pl.hp = -1;});
 tfuncs.push(function(pl){pl.hp -= 1;});
 tfuncs.push(function(pl){invincibility = 60;cool=60;});
-tfuncs.push(function(pl){pl.x = 0; pl.y = 32;pl.xv = 0; pl.yv = 0;});
-tfuncs.push(function(pl){pl.x = -658; pl.y = 488;pl.xv = 0; pl.yv = 0;});
+tfuncs.push(function(pl){pl.x = 0; pl.y = 0;pl.xv = 0; pl.yv = 0;});
+tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1;pl.xv = 0; pl.yv = 0;});
+tfuncs.push(function(pl){hit = 5.02;});
+tfuncs.push(function(pl){pl.y = 132.1});
 
-var triggers = [];
 
-if (lvl)
-for (var i = 0; i < lvl.length; i++){
-    var t = lvl[i];
-	if (t["_width"]){
-		var mul = 0.01;
-		ground.push({col:t["_name"],left:parseInt(t["_x"])*mul,top:parseInt(t["_y"])*mul,right:parseInt(t["_x"])*mul+(parseInt(t["_width"])*mul+0.02),bottom:parseInt(t["_y"])*mul+(parseInt(t["_height"])*mul+0.02) } ) ;
-		//if ('_value' in t["properties"]["property"])
-		//	ground[ground.length-1].col = convertHexToRgbA(t["properties"]["property"]["_value"]);
-	//console.log(t);
-	}
-}
-if (lvld)
-for (var i = 0; i < lvld.length; i++){
-    var t = lvld[i];
-	if (t["_width"]){
-		var mul = 0.01;
-		decor.push({col:t["_name"],left:parseInt(t["_x"])*mul,top:parseInt(t["_y"])*mul,right:parseInt(t["_x"])*mul+(parseInt(t["_width"])*mul+0.02),bottom:parseInt(t["_y"])*mul+(parseInt(t["_height"])*mul+0.02) } ) ;
-		//if ('_value' in t["properties"]["property"])
-		//	decor[decor.length-1].col = convertHexToRgbA(t["properties"]["property"]["_value"]);
-	//console.log(t);
-	}
-}
-if (lvlt)
-for (var i = 0; i < lvlt.length; i++){
-    var t = lvlt[i];
-	if (t["_width"]){
-		var mul = 0.01;
-		triggers.push({cool:0.0,left:parseInt(t["_x"])*mul,top:parseInt(t["_y"])*mul,right:parseInt(t["_x"])*mul+(parseInt(t["_width"])*mul+0.02),bottom:parseInt(t["_y"])*mul+(parseInt(t["_height"])*mul+0.02),func:parseInt(t["_type"]),name:t["_name"] } ) ;
-	//console.log(t);
-	}
-}
+
 
 
 
@@ -452,12 +436,12 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 8;
-
+            var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 		}
 	}//cutter
 	,{
@@ -466,12 +450,12 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 15;
-
+            var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 		}
 	}//good cutter
 	,{
@@ -480,12 +464,12 @@ var itemtypes = [
 		cool:0.6,
 		func:function(pl){
 			var atk = 30;
-
+            var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:6,atk:atk,width:1.0,height:0.23});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
 		}
 	}//best cutter
 	,
@@ -727,18 +711,18 @@ var characters = [
 	new Image(),
 	new Image(),
 	new Image(),
+    new Image(),
+	new Image(),
 	new Image(),
     new Image(),
-    new Image(),
-    new Image(),
-    new Image(),
-    new Image(),
+	new Image(),
+	new Image(),
 	new Image()
 ];
 
 
 characters[0].src = 'static/img/man1.png';
-characters[1].src = 'static/img/man2.png';
+characters[1].srct = 'static/img/man2.png';
 characters[2].src = 'static/img/man3.png';
 
 characters[3].src = 'static/img/girl1.png'
@@ -754,12 +738,14 @@ characters[9].src = 'static/img/dog.png'
 characters[10].src = 'static/img/technopig.png'
 characters[11].src = 'static/img/dreamy.png'
 characters[12].src = 'static/img/annoyingdog.png'
+
 characters[13].src = 'static/img/duane.png'
 characters[14].src = 'static/img/leenk.png'
 characters[15].src = 'static/img/markio.png'
 characters[16].src = 'static/img/looogi.png'
 characters[17].src = 'static/img/MRLoogi.png'
 characters[18].src = 'static/img/kirbo.png'
+
 var spsize;
 spsize = 64;
 
@@ -775,7 +761,12 @@ socket.on('c', function(message) {
    chat[0]=message;
 });
 
-
+var gcol = function(rect){
+	if (rect)
+		return "rgb("+rect["colr"].toString()+","+rect["colg"].toString()+","+rect["colb"].toString()+")";
+	else 
+		return "blue";
+}
 
 setInterval(function() {
 	canvas.width  = window.innerWidth;
@@ -787,25 +778,17 @@ setInterval(function() {
     plsize = canvas.height/24;
     var trectangle = {top:(-canvas.height/2/plsize+mee.y)-0.3,bottom:(canvas.height/2/plsize+mee.y)+0.3,left:(-canvas.width/2/plsize+mee.x)-0.3,right:(canvas.width/2/plsize+mee.x)+0.3};
 
-	var drawnd = []
+	var drawnd = [];
 	for (var i = 0; i < decor.length; i++) {
         if (intersectRect(decor[i],trectangle)){
 			drawnd.push(decor[i]);
 		}
 	}
-	context.fill();
-	if (drawnd[0])context.fillStyle = drawnd[0].col;
-	context.beginPath();
     for (var i = 0; i < drawnd.length; i++) {
-
-            context.rect(((drawnd[i].left-mee.x)*plsize+canvas.width/2),((drawnd[i].top-mee.y)*plsize+canvas.height/2),(drawnd[i].right-drawnd[i].left)*plsize,(drawnd[i].bottom-drawnd[i].top)*plsize);
-            if (i == drawnd.length-1){
-				context.fill();
-			}else if (drawnd[i+1].col!=drawnd[i]){
-			context.fill();
-			context.fillStyle = drawnd[i+1].col;
-            context.beginPath();
-			}
+		context.fillStyle = gcol(drawnd[i]);
+        context.beginPath();
+        context.rect(((drawnd[i].left-mee.x)*plsize+canvas.width/2)-1,((drawnd[i].top-mee.y)*plsize+canvas.height/2)-1,(drawnd[i].right-drawnd[i].left)*plsize+1,(drawnd[i].bottom-drawnd[i].top)*plsize+1);
+        context.fill();
     }
 
 
@@ -815,27 +798,20 @@ setInterval(function() {
 			drawn.push(ground[i]);
 		}
 	}
-	context.fillStyle = "rgb(50,50,50)";
+	context.fillStyle = "rgb(20,20,20)";
     context.beginPath();
 	for (var i = 0; i < drawn.length; i++) {
-        context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2)+plsize/5,((drawn[i].top-mee.y)*plsize+canvas.height/2)+plsize/5,(drawn[i].right-drawn[i].left)*plsize,(drawn[i].bottom-drawn[i].top)*plsize);
+        context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2)-plsize/20-1,((drawn[i].top-mee.y)*plsize+canvas.height/2)-plsize/20-1,(drawn[i].right-drawn[i].left)*plsize+plsize/10+1,(drawn[i].bottom-drawn[i].top)*plsize+plsize/10+1);
 
     }
 	context.fill();
 	
 	
-	if (drawn[0])context.fillStyle = drawn[0].col;
-	context.beginPath();
     for (var i = 0; i < drawn.length; i++) {
-
-            context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2),((drawn[i].top-mee.y)*plsize+canvas.height/2),(drawn[i].right-drawn[i].left)*plsize,(drawn[i].bottom-drawn[i].top)*plsize);
-            if (i == drawn.length-1){
-				context.fill();
-			}else if (drawn[i+1].col!=drawn[i]){
-			context.fill();
-			context.fillStyle = drawn[i+1].col;
-            context.beginPath();
-			}
+			context.fillStyle = gcol(drawn[i]);
+			context.beginPath();
+            context.rect(((drawn[i].left-mee.x)*plsize+canvas.width/2)-1,((drawn[i].top-mee.y)*plsize+canvas.height/2)-1,(drawn[i].right-drawn[i].left)*plsize+1,(drawn[i].bottom-drawn[i].top)*plsize+1);
+            context.fill();
     }
 
 	var drawnt = []
@@ -1025,59 +1001,7 @@ spunch.volume = 0.2;
 sjump.volume = 0.2;
 sslide.volume = 0.2;
 
-//mee.name = prompt("Username:\ncontrols:z/space/up-jump   x-use item   c-change item   left/right-move", "");
-var listc = {
-	"man1" : 0,
-	"cheeseman" : 0,
-	"mancheese" : 0,
-	"man2" : 1,
-	"man":1,
-	"redman":1,
-	"manred":1,
-	"man3" : 2,
-	"greenman" : 2,
-	"mangreen" : 2,
-	"tman" : 3,
-	"tshirtman" : 3,
-	"mantshirt" : 3,
-	"girl1" : 4,
-	"girl":4,
-	"pinkgirl":4,
-	"girlpink" : 5,
-	"girl2" : 5,
-	"bluegirl" : 5,
-	"girlblue" : 5,
-	"bike" : 6,
-	"bike1" : 6,
-	"redbike" : 6,
-	"bikered" : 6,
-	"bike2" : 7,
-	"bluebike" : 7,
-	"bikeblue" : 7,
-	"bot" : 8,
-	"bluebot" : 8,
-	"botblue" : 8,
-	"manbot" : 8,
-	"botman" : 8,
-	"pinkbot" : 9,
-	"botpink" : 9,
-	"girlbot" : 9,
-	"botgirl" : 9,
-	"cat" : 11,
-	"dog" : 10,
-}
-//var tchar = prompt("Player:\n0:cheese man\n1:red man\n2:green man\n3:tshirt? man\n4:pink girl\n5:blue girl\n6:red bike\n7:blue bike\n8:blue bot\n9:pink bot\n10:dog\n11:cat","");
 
-//if (tchar){
-//if (characters[tchar])
-//	mee.char = +tchar;
-//else{
-//	if (listc[tchar.replace(/\s/g, '').toLowerCase()])
-//		mee.char = listc[tchar.replace(/\s/g, '').toLowerCase()];
-//	else
-//		mee.char = 0;
-//}
-//}
 
 var startgame = false;
 
@@ -1092,6 +1016,7 @@ var punchanim = -0.1;
 
 
 var thp = 0.0;
+var jtime = 0.0;
 
 var pslide = false;
 var djump = false;
@@ -1120,6 +1045,7 @@ function checkFlag() {
     var dt = (currentTime - lastUpdateTime)/1000.0;
 	animtime+=dt;
 	punchanim-=dt;
+    jtime-=dt;
 	thp+= dt;
 
 	if (thp>5.0){
@@ -1234,7 +1160,8 @@ function checkFlag() {
 		//	if (sitm<0)
 		//		sitm=items.length-1;
 		//}
-
+    if (jump.up)
+        jtime = 0.2;
     if (jump.up || jump.left || jump.right)
       djump = true;
 		if (keysdown.up && !keysdown.pup)
@@ -1244,8 +1171,9 @@ function checkFlag() {
         sjump.currentTime = 0;
         sjump.play();
       }
-			if (jump.up){
+			if (jtime > 0){
 				mee.yv = -10;
+                jtime=-0.1;
 			}else{
 				if (((jump.left&& mee.dir) || (jump.right&& !mee.dir))){
 					if (jump.left&& mee.dir){
@@ -1353,7 +1281,10 @@ function checkFlag() {
 		for (var i = 0 ; i < triggers.length ; i++ ){
 			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
 				tfuncs[triggers[i].func](mee);
-				triggers[i].cool = 20.0;
+                if (triggers[i].name == " ")
+                    triggers[i].cool = 0.2;
+                else    
+				    triggers[i].cool = 5.0;
 			}
 		}
 		for (var id in cplayers) {
