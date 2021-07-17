@@ -53,7 +53,7 @@ var mee = {
 	dir : false,
 	pjs : [],//x,y,xv,yv,atk,dur,size
 	score : 0,
-	name : "person",
+	name : "loading...",
 	anim : 0,
 	char : 0
 }
@@ -261,7 +261,7 @@ tfuncs.push(function(pl){pl.hp = pl.hp / 4;if (pl.hp < 1) pl.hp = -1;});
 tfuncs.push(function(pl){pl.hp -= 1;});
 tfuncs.push(function(pl){invincibility = 60;cool=60;});
 tfuncs.push(function(pl){pl.x = 0; pl.y = 0;pl.xv = 0; pl.yv = 0;});
-tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1;pl.xv = 0; pl.yv = 0;});
+tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1});
 tfuncs.push(function(pl){hit = 5.02;});
 tfuncs.push(function(pl){pl.y = 132.1});
 
