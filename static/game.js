@@ -1260,8 +1260,17 @@ function checkFlag() {
     var steps = Math.floor(Math.sqrt(mee.xv*dt*mee.xv*dt+mee.yv*dt*mee.yv*dt)*8.0)+1;
     var altdt = dt/steps;
     //console.log(1.0/dt);
-	for (var i = 0 ; i < triggers.length ; i++ )
-		triggers[i].cool -= dt;
+    for (var i = 0 ; i < triggers.length ; i++ )
+	    triggers[i].cool -= dt;    
+    var plrectt = {top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5};
+    var plrectalt = {top: Math.min(plrectt.top+mee.yv*dt,plrectt.top) , bottom : Math.max(plrectt.bottom+mee.yv*dt,plrectt.bottom),left: Math.min(plrectt.left+mee.xv*dt,plrectt.left) , right : Math.max(plrectt.right+mee.xv*dt,plrectt.right) };
+    var groundt = [];    
+    for (var i = 0; i < ground.length; i++) {
+        if (intersectRect(plrectalt,ground[i]))
+            groundt.push(ground[i])
+    }
+
+
     for (var it = 0; it < steps; it++) {
         //for (var id in cplayers) {
         //    if (id != socket.id){
@@ -1272,6 +1281,10 @@ function checkFlag() {
             mee.x += mee.xv*altdt;
         if (Math.abs(mee.yv) > 0.001)
             mee.y += mee.yv*altdt;
+        jump = {up:false,left:false,right:false};
+        for (var i = 0; i < groundt.length; i++) {
+           collide(mee,ground[i]);
+	    }
 
         for (var i = 0; i < ground.length; i++) {
             collide(mee,ground[i]);
@@ -1295,6 +1308,8 @@ function checkFlag() {
 						{top:player.pjs[i].y-player.pjs[i].height,bottom:player.pjs[i].y+player.pjs[i].height,right:player.pjs[i].x+player.pjs[i].width,left:player.pjs[i].x-player.pjs[i].width})){
 						if (hit <= 0.0){
 							mee.hp-=player.pjs[i].atk;
+                            //mee.xv = 10;
+                            //djump=false;
 							hit = 0.3;
 							if (mee.hp <= 0.0){
 								socket.emit('d',id);
@@ -1304,16 +1319,15 @@ function checkFlag() {
 				}
 			}
 		}
+        
+	
     }
     //for (var id in cplayers) {
     //    if (id != socket.id){
     //        collidepl(mee,cplayers[id]);
     //    }
     //}
-    jump = {up:false,left:false,right:false};
-	for (var i = 0; i < ground.length; i++) {
-       collide(mee,ground[i]);
-	}
+    
 
     const f = 3;
 	if (jump.left  && mee.dir){
