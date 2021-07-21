@@ -439,9 +439,9 @@ var itemtypes = [
             var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 		}
 	}//cutter
 	,{
@@ -453,9 +453,9 @@ var itemtypes = [
             var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 		}
 	}//good cutter
 	,{
@@ -467,9 +467,9 @@ var itemtypes = [
             var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.7,height:0.7});
+				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 		}
 	}//best cutter
 	,
