@@ -1283,12 +1283,9 @@ function checkFlag() {
             mee.y += mee.yv*altdt;
         jump = {up:false,left:false,right:false};
         for (var i = 0; i < groundt.length; i++) {
-           collide(mee,ground[i]);
+           collide(mee,groundt[i]);
 	    }
 
-        for (var i = 0; i < ground.length; i++) {
-            collide(mee,ground[i]);
-        }
 
         var plrect = {top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5};
 		for (var i = 0 ; i < triggers.length ; i++ ){
