@@ -369,7 +369,7 @@ var itemtypes = [
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
 		else
 			pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
-		if (pl.hp > 95){
+		if (pl.hp > pl.mxhp*0.9){
 			if (pl.dir)
 				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
 			else
@@ -559,14 +559,14 @@ tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1});
 tfuncs.push(function(pl){hit = 5.02;});
 tfuncs.push(function(pl){pl.y = 132.1});
 var Upgrades = [true,true,true,true,true,true,true,true];
-tfuncs.push(function(pl){if (Upgrades[0]){pl.mxhp+=50;Upgrades[0]=false;} });
-tfuncs.push(function(pl){if (Upgrades[1]){pl.mxhp+=50;Upgrades[1]=false;} });
-tfuncs.push(function(pl){if (Upgrades[2]){pl.mxhp+=50;Upgrades[2]=false;} });
-tfuncs.push(function(pl){if (Upgrades[3]){pl.mxhp+=50;Upgrades[3]=false;} });
-tfuncs.push(function(pl){if (Upgrades[4]){pl.mxhp+=50;Upgrades[4]=false;} });
-tfuncs.push(function(pl){if (Upgrades[5]){pl.mxhp+=50;Upgrades[5]=false;} });
-tfuncs.push(function(pl){if (Upgrades[6]){pl.mxhp+=50;Upgrades[6]=false;} });
-tfuncs.push(function(pl){if (Upgrades[7]){pl.mxhp+=50;Upgrades[7]=false;} });
+tfuncs.push(function(pl){if (Upgrades[0]){pl.mxhp+=50;pl.hp+=50;Upgrades[0]=false;} });
+tfuncs.push(function(pl){if (Upgrades[1]){pl.mxhp+=50;pl.hp+=50;Upgrades[1]=false;} });
+tfuncs.push(function(pl){if (Upgrades[2]){pl.mxhp+=50;pl.hp+=50;Upgrades[2]=false;} });
+tfuncs.push(function(pl){if (Upgrades[3]){pl.mxhp+=50;pl.hp+=50;Upgrades[3]=false;} });
+tfuncs.push(function(pl){if (Upgrades[4]){pl.mxhp+=50;pl.hp+=50;Upgrades[4]=false;} });
+tfuncs.push(function(pl){if (Upgrades[5]){pl.mxhp+=50;pl.hp+=50;Upgrades[5]=false;} });
+tfuncs.push(function(pl){if (Upgrades[6]){pl.mxhp+=50;pl.hp+=50;Upgrades[6]=false;} });
+tfuncs.push(function(pl){if (Upgrades[7]){pl.mxhp+=50;pl.hp+=50;Upgrades[7]=false;} });
 
 var plsize =0;
 
