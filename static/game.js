@@ -50,6 +50,7 @@ var mee = {
     xv : 0.0,
     yv : 0.0,
 	hp : 100.0,
+    mxhp : 100.0,
 	dir : false,
 	pjs : [],//x,y,xv,yv,atk,dur,size
 	score : 0,
@@ -86,7 +87,8 @@ function collide(pl,r){
             }else
             {
                 pl.y = r.top-0.499;
-			    pl.yv = 0.0;
+                if (pl.yv>0.0)
+			        pl.yv = 0.0;
 			    jump.up=true;
             }
          }else{
@@ -240,30 +242,7 @@ var decor = rawlvl["decor"];
 var triggers = rawlvl["triggers"];
 if (!triggers)
 	triggers = [];
-var tfuncs = [
-		function(pl){console.log("trig")}
 
-]
-for (var i = 1; i < 23 ; i++){
-	tfuncs.push(new Function("pl", "itemtypes["+i+"].stk=1;"));
-}
-var invincibility = 0;
-tfuncs.push(function(pl){if (itemtypes[23].stk < 32)itemtypes[23].stk++;});
-tfuncs.push(function(pl){if (itemtypes[24].stk < 32)itemtypes[24].stk++;});
-tfuncs.push(function(pl){if (itemtypes[25].stk < 32)itemtypes[25].stk++;});
-tfuncs.push(function(pl){itemtypes[26].stk=1;});
-tfuncs.push(function(pl){pl.hp=-1;});
-tfuncs.push(function(pl){pl.hp = 1;});
-tfuncs.push(function(pl){pl.hp -= 10;});
-tfuncs.push(function(pl){pl.hp -= 50;});
-tfuncs.push(function(pl){pl.hp = pl.hp / 2;if (pl.hp < 1) pl.hp = -1;});
-tfuncs.push(function(pl){pl.hp = pl.hp / 4;if (pl.hp < 1) pl.hp = -1;});
-tfuncs.push(function(pl){pl.hp -= 1;});
-tfuncs.push(function(pl){invincibility = 60;cool=60;});
-tfuncs.push(function(pl){pl.x = 0; pl.y = 0;pl.xv = 0; pl.yv = 0;});
-tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1});
-tfuncs.push(function(pl){hit = 5.02;});
-tfuncs.push(function(pl){pl.y = 132.1});
 
 
 
@@ -297,87 +276,94 @@ socket.on('s', function(players) {
 });
 
 var sitm = 0;
+
+function itemlvl(){
+    var lvl = 1;
+    if (itemtypes[sitm]["upgrades"]){
+        lvl=0;
+        for (var i = 0 ; i < itemtypes[sitm].upamnt ; i++)
+            if (itemtypes[sitm]["upgrades"][i])
+                lvl++;    
+    }
+    return lvl;
+}
+function itemlvls(itm){
+    var lvl = 1;
+    if (itm["upgrades"]){
+        lvl=0;       
+        for (var i = 0 ; i < itm.upamnt ; i++)
+            if (itm["upgrades"][i])
+               lvl++;    
+    }
+    return lvl;
+}
 var itemtypes = [
 	{
 		stk:1,
-		name:"your fist",
+		name:"fist",
 		cool:0.25,
+        upamnt:2,
+        upgrades:[true,false],
+
+
 		func:function(pl){
-		var atk = 1;
+		var atk=1;
+        var lvl = itemlvl();
+        if (lvl == 2)
+            atk=15;
+        if (lvl == 2)
+            atk=15;
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+0.75,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:0.25,height:0.25});
 		else
 			pl.pjs.push({x:pl.x-0.75,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:0.25,height:0.25});
 		}
 	}//fist
-	,{
-		stk:0,
-		name:"the better fist",
-		cool:0.25,
-		func:function(pl){
-		var atk = 15;
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+0.75,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:0.25,height:0.25});
-		else
-			pl.pjs.push({x:pl.x-0.75,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:0.25,height:0.25});
-		}
-	}//better fist
+	
 	,
 	{
 		stk:0,
 		name:"pew pew",
 		cool:0.5,
-		func:function(pl){
+        upamnt:4,
+        upgrades:[false,false,false,false],
+		
+        func:function(pl){
 		var atk = 1;
+        var lvl = itemlvl();
+        if (lvl == 2)
+            atk=5;
+        if (lvl == 3)
+            atk=10;
+        if (lvl == 4)
+            atk=20;
+
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		else
 			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
 		}
 	}//pew pew
-	,{
-		stk:0,
-		name:"good pew pew",
-		cool:0.5,
-		func:function(pl){
-		var atk = 5;
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		}
-	}//good pew pew
-	,{
-		stk:0,
-		name:"great pew pew",
-		cool:0.5,
-		func:function(pl){
-		var atk = 10;
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		}
-	}//great pew pew
-	,{
-		stk:0,
-		name:"master pew pew",
-		cool:0.5,
-		func:function(pl){
-		var atk = 20;
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		else
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-20,yv:0,dur:6,atk:atk,width:0.3,height:0.3});
-		}
-	}//best pew pew
+	
+	
+	
 	,
 	{
 		stk:0,
 		name:"sword",
 		cool:0.75,
+        
+        upamnt:3,
+        upgrades:[false,false,false],
+        
 		func:function(pl){
 		var atk = 15;
+        
+        var lvl = itemlvl();
+        if (lvl == 2)
+            atk=30;
+        if (lvl == 3)
+            atk=50;
 
 		if (pl.dir)
 			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
@@ -391,51 +377,24 @@ var itemtypes = [
 		}
 		}
 	}//sword
-	,{
-		stk:0,
-		name:"great sword",
-		cool:0.75,
-		func:function(pl){
-		var atk = 30;
-
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
-		else
-			pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
-		if (pl.hp > 95){
-			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
-			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
-		}
-		}
-	}//good sword
-	,{
-		stk:0,
-		name:"master sword",
-		cool:0.75,
-		func:function(pl){
-		var atk = 50;
-
-		if (pl.dir)
-			pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
-		else
-			pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:1.0,height:0.23});
-		if (pl.hp > 95){
-			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
-			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:-15,yv:0,dur:1.7,atk:atk/5,width:1.0,height:0.23});
-		}
-		}
-	}//best sword
+	
+	
 	,
 	{
 		stk:0,
 		name:"cutter",
 		cool:0.6,
+        upamnt:3,
+        upgrades:[false,false,false],
+
 		func:function(pl){
 			var atk = 8;
+            var lvl = itemlvl();
+            if (lvl == 2)
+                atk=15;
+            if (lvl == 3)
+                atk=30;
+
             var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
 
 			if (pl.dir)
@@ -444,41 +403,27 @@ var itemtypes = [
 				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
 		}
 	}//cutter
-	,{
-		stk:0,
-		name:"great cutter",
-		cool:0.6,
-		func:function(pl){
-			var atk = 15;
-            var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
-
-			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
-			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
-		}
-	}//good cutter
-	,{
-		stk:0,
-		name:"master cutter",
-		cool:0.6,
-		func:function(pl){
-			var atk = 30;
-            var len = Math.sqrt(pl.xv*pl.xv+pl.yv*pl.yv);
-
-			if (pl.dir)
-				pl.pjs.push({x:pl.x+(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
-			else
-				pl.pjs.push({x:pl.x-(1.0+0.5),y:pl.y,xv:(pl.xv/len)*19,yv:(pl.yv/len)*19,dur:6,atk:atk,width:0.5,height:0.5});
-		}
-	}//best cutter
+	
+	
 	,
 	{
 		stk:0,
 		name:"pubg weapon",
 		cool:1.4,
+
+        upamnt:4,
+        upgrades:[false,false,false,false],
+
 		func:function(pl){
 		var atk = 1;
+        var lvl = itemlvl();
+        if (lvl == 2)
+            atk=3;
+        if (lvl == 3)
+            atk=5;
+        if (lvl == 4)
+            atk=10;
+
 		if (pl.dir){
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
 			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
@@ -495,164 +440,54 @@ var itemtypes = [
 		}
 		}
 	},//pubg
-	{
-		stk:0,
-		name:"good pubg weapon",
-		cool:1.4,
-		func:function(pl){
-		var atk = 3;
-		if (pl.dir){
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-
-		}else{
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-		}
-		}
-	},//good pubg
-	{
-		stk:0,
-		name:"great pubg weapon",
-		cool:1.4,
-		func:function(pl){
-		var atk = 5;
-		if (pl.dir){
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-
-		}else{
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-		}
-		}
-	},//great pubg
-	{
-		stk:0,
-		name:"master pubg weapon",
-		cool:1.4,
-		func:function(pl){
-		var atk = 10;
-		if (pl.dir){
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x+1.0,y:pl.y,xv:16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-
-		}else{
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-17,yv:0,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16,yv:-3,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:1.5,dur:2,atk:atk,width:0.3,height:0.3});
-			pl.pjs.push({x:pl.x-1.0,y:pl.y,xv:-16.7,yv:-1.5,dur:2,atk:atk,width:0.3,height:0.3});
-		}
-		}
-	},//best pubg
+	
 
 
 	{
 		stk:0,
 		name:"WW2 weapon",
 		cool:0.25,
+        upamnt:3,
+        upgrades:[false,false,false],        
+        
 		func:function(pl){
-		var atk = 10;
-		pl.hp/=1.3;
-		if (pl.hp < 1)
-			pl.hp = -1;
-		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
-		itemtypes[sitm].stk = 0;
-		}
-	}//WW2
-	,{
-		stk:0,
-		name:"great WW2 weapon",
-		cool:0.25,
-		func:function(pl){
-		var atk = 25;
-		pl.hp/=1.3;
-		if (pl.hp < 1)
-			pl.hp = -1;
-		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
-		itemtypes[sitm].stk = 0;
-		}
-	}//good WW2
-	,{
-		stk:0,
-		name:"master WW2 weapon",
-		cool:0.25,
-		func:function(pl){
-		var atk = 50;
-		pl.hp/=1.3;
-		if (pl.hp < 1)
-			pl.hp = -1;
-		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
-		itemtypes[sitm].stk = 0;
-		}
-	}//best WW2
-	,
+		var atk = 20;
+        var lvl = itemlvl();
+        if (lvl == 2)
+            atk=40;
+        if (lvl == 3)
+            atk=90;
 
 
+		pl.hp/=1.3;
+		if (pl.hp < 1)
+			pl.hp = -1;
+		pl.pjs.push({x:pl.x,y:pl.y,xv:pl.xv,yv:pl.yv,dur:0.1,atk:atk,width:10,height:10});
+		itemtypes[sitm].stk = 0;
+		}
+	},//WW2
 	{
 		stk:0,
 		name:"megaman's bane",
 		cool:1.0,
+        upamnt:4,
+        upgrades:[false,false,false,false],
+        
 		func:function(pl){
 			var atk = 1;
+            var lvl = itemlvl();
+            if (lvl == 2)
+                atk=2;
+            if (lvl == 3)
+                atk=4;
+            if (lvl == 4)
+                atk=6;
 			for (var i = 0 ; i < 16 ; i++){
 				var t = i/16;
 				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
 			}
 		}
 	},//megaman
-	{
-		stk:0,
-		name:"good megaman's bane",
-		cool:1.0,
-		func:function(pl){
-			var atk = 2;
-			for (var i = 0 ; i < 16 ; i++){
-				var t = i/16;
-				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
-			}
-		}
-	},//good megaman
-	{
-		stk:0,
-		name:"great megaman's bane",
-		cool:1.0,
-		func:function(pl){
-			var atk = 4;
-			for (var i = 0 ; i < 16 ; i++){
-				var t = i/16;
-				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
-			}
-		}
-	},//great megaman
-	{
-		stk:0,
-		name:"master megaman's bane",
-		cool:1.0,
-		func:function(pl){
-			var atk = 6;
-			for (var i = 0 ; i < 16 ; i++){
-				var t = i/16;
-				pl.pjs.push({x:pl.x,y:pl.y,xv:Math.cos(Math.PI*t*2)*10,yv:Math.sin(Math.PI*t*2)*10,dur:1.3,atk:atk,width:0.3,height:0.3});
-			}
-		}
-	},//best megaman
 
 
 
@@ -662,7 +497,7 @@ var itemtypes = [
 		cool:4,
 		func:function(pl){
 			pl.hp+=1;
-			pl.hp = Math.min(100,pl.hp);
+			pl.hp = Math.min(pl.mxhp,pl.hp);
 			itemtypes[sitm].stk--;
 		}
 	},//food
@@ -672,7 +507,7 @@ var itemtypes = [
 		cool:4,
 		func:function(pl){
 			pl.hp+=10;
-			pl.hp = Math.min(100,pl.hp);
+			pl.hp = Math.min(pl.mxhp,pl.hp);
 			itemtypes[sitm].stk--;
 		}
 	},//dairy
@@ -682,7 +517,7 @@ var itemtypes = [
 		cool:4,
 		func:function(pl){
 			pl.hp+=25;
-			pl.hp = Math.min(100,pl.hp);
+			pl.hp = Math.min(pl.mxhp,pl.hp);
 			itemtypes[sitm].stk--;
 		}
 	},//cheese
@@ -691,11 +526,48 @@ var itemtypes = [
 		name:"cheese cake",
 		cool:2,
 		func:function(pl){
-			pl.hp=100;
+			pl.hp=pl.mxhp;
 			itemtypes[sitm].stk = 0;
 		}
 	}//cheese cake
 ];
+
+var tfuncs = [
+
+]
+
+for (var i = 0; i < 7 ; i++){
+    for (var j = 0; j < itemtypes[i].upamnt ; j++){
+	    tfuncs.push(new Function("pl", "itemtypes["+i+"].stk=1;if(!itemtypes["+i+"][\"upgrades\"]["+j+"])itemtypes["+i+"][\"upgrades\"]["+j+"]=true;"));
+    }
+}
+var invincibility = 0;
+tfuncs.push(function(pl){if (itemtypes[7].stk < 32)itemtypes[7].stk++;});
+tfuncs.push(function(pl){if (itemtypes[8].stk < 32)itemtypes[8].stk++;});
+tfuncs.push(function(pl){if (itemtypes[9].stk < 32)itemtypes[9].stk++;});
+tfuncs.push(function(pl){itemtypes[10].stk=1;});
+tfuncs.push(function(pl){pl.hp=-1;});
+tfuncs.push(function(pl){pl.hp = 1;});
+tfuncs.push(function(pl){pl.hp -= 10;});
+tfuncs.push(function(pl){pl.hp -= 50;});
+tfuncs.push(function(pl){pl.hp = pl.hp / 2;if (pl.hp < 1) pl.hp = -1;});
+tfuncs.push(function(pl){pl.hp = pl.hp / 4;if (pl.hp < 1) pl.hp = -1;});
+tfuncs.push(function(pl){pl.hp -= 1;});
+tfuncs.push(function(pl){invincibility = 60;cool=60;});
+tfuncs.push(function(pl){pl.x = 0; pl.y = 0;pl.xv = 0; pl.yv = 0;});
+tfuncs.push(function(pl){pl.x = -120.3; pl.y = 132.1});
+tfuncs.push(function(pl){hit = 5.02;});
+tfuncs.push(function(pl){pl.y = 132.1});
+var Upgrades = [true,true,true,true,true,true,true,true];
+tfuncs.push(function(pl){if (Upgrades[0]){pl.mxhp+=50;Upgrades[0]=false;} });
+tfuncs.push(function(pl){if (Upgrades[1]){pl.mxhp+=50;Upgrades[1]=false;} });
+tfuncs.push(function(pl){if (Upgrades[2]){pl.mxhp+=50;Upgrades[2]=false;} });
+tfuncs.push(function(pl){if (Upgrades[3]){pl.mxhp+=50;Upgrades[3]=false;} });
+tfuncs.push(function(pl){if (Upgrades[4]){pl.mxhp+=50;Upgrades[4]=false;} });
+tfuncs.push(function(pl){if (Upgrades[5]){pl.mxhp+=50;Upgrades[5]=false;} });
+tfuncs.push(function(pl){if (Upgrades[6]){pl.mxhp+=50;Upgrades[6]=false;} });
+tfuncs.push(function(pl){if (Upgrades[7]){pl.mxhp+=50;Upgrades[7]=false;} });
+
 var plsize =0;
 
 var characters = [
@@ -768,6 +640,7 @@ var gcol = function(rect){
 		return "blue";
 }
 
+var lvlnames = ["","good ","great ","master "]
 setInterval(function() {
 	canvas.width  = window.innerWidth;
 	canvas.height = window.innerHeight;
@@ -867,7 +740,7 @@ setInterval(function() {
             //context.fill();
 			context.fillStyle = 'red';
 			context.font = "16px Verdana";
-			context.fillText(Math.floor(player.hp), ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2);
+			context.fillText(Math.floor(player.hp)+"/"+Math.floor(player.mxhp), ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,((player.y-mee.y)*plsize+canvas.height/2)-plsize/2);
 			context.fillStyle = 'rgb(255, 153, 0)';
 			context.font = "16px Verdana";
 			context.fillText(player.score, ((player.x-mee.x)*plsize+canvas.width/2)-plsize/2,(((player.y-mee.y)*plsize-15)+canvas.height/2)-plsize/2);
@@ -933,7 +806,7 @@ setInterval(function() {
 	context.fillText("CD:"+Math.max(Math.floor(cool*10),0), (canvas.width)-context.measureText("CD:"+Math.max(Math.floor(cool*10),0)+"  ").width,64);
 	context.fillStyle = 'red';
 	context.font = "16px Verdana";
-	context.fillText("HP:"+Math.floor(mee.hp), (canvas.width)-context.measureText("HP:"+Math.floor(mee.hp)+"  ").width,48);
+	context.fillText("HP:"+Math.floor(mee.hp)+"/"+Math.floor(mee.mxhp), (canvas.width)-context.measureText("HP:"+Math.floor(mee.hp)+"/"+Math.floor(mee.mxhp)+"  ").width,48);
 	context.fillStyle = 'rgba(255, 153, 0,255)';
 	context.font = "16px Verdana";
 	context.fillText("score:"+mee.score, (canvas.width)-context.measureText("score:"+mee.score+"  ").width,32);
@@ -958,16 +831,23 @@ setInterval(function() {
 	context.fillStyle = 'black';
 	var index = 0;
 	for (var i = 0 ; i < itemtypes.length ; i++){
-		if (i == sitm){
+        var lvl = itemlvls(itemtypes[i]);
+        var prefix = "";    
+        if (lvl != 1){
+            prefix = lvlnames[(4-itemtypes[i].upamnt)+lvl-1];
+        }
+            
+	
+        if (i == sitm){
 			if (itemtypes[i].stk){
-				context.fillText(">"+itemtypes[i].name+((itemtypes[i].stk>1)?":"+itemtypes[i].stk:"")+"<", 8,16+index*16);
+				context.fillText(">"+prefix+itemtypes[i].name+((itemtypes[i].stk>1)?":"+itemtypes[i].stk:"")+"<", 8,16+index*16);
 				index+=1;
 			}
 		}
 		else
 			if (itemtypes[i].stk){
 
-				context.fillText(itemtypes[i].name+((itemtypes[i].stk>1)?":"+itemtypes[i].stk:""), 8,16+index*16);
+				context.fillText(prefix+itemtypes[i].name+((itemtypes[i].stk>1)?":"+itemtypes[i].stk:""), 8,16+index*16);
 				index+=1;
 			}
 	}
@@ -1013,7 +893,8 @@ var hit = 0.0;
 var animspd = 0;
 var animtime = 0.1;
 var punchanim = -0.1;
-
+var knx = 0;
+var kny = 0;
 
 var thp = 0.0;
 var jtime = 0.0;
@@ -1029,7 +910,7 @@ function checkFlag() {
     lastUpdateTime = performance.now();
       setInterval(function() {
   mee.score = Math.max(0,mee.score);
-  mee.hp = Math.min(100,mee.hp);
+  mee.hp = Math.min(mee.mxhp,mee.hp);
 
   if ((((jump.left&& mee.dir) || (jump.right&& !mee.dir))&&mee.yv>0.1) && !pslide){
     if (!isMobile)
@@ -1050,7 +931,7 @@ function checkFlag() {
 
 	if (thp>5.0){
 	thp=0;
-	mee.hp++;
+	mee.hp+=mee.mxhp/100.0;
 	}
 	if (animtime>(1.0/animspd)){
 		if (mee.anim == 0)
@@ -1088,7 +969,7 @@ function checkFlag() {
 
 	invincibility-=dt;
 	if (invincibility>0){
-		mee.hp = 100.0;
+		mee.hp = mee.mxhp;
 	}
 	if (mee.hp <= 0)
 		{
@@ -1098,6 +979,7 @@ function checkFlag() {
 				xv : 0.0,
 				yv : 0.0,
 				hp : 100.0,
+                mxhp : 100.0,
 				dir : false,
 				pjs : [],//x,y,xv,yv,atk,dur,size
 				score : mee.score-1,
@@ -1105,10 +987,11 @@ function checkFlag() {
 				anim : 0,
 				char : mee.char
 			};
-			//items = [0];
 			itemtypes[0].stk=1;
 			for (var i = 1 ; i < itemtypes.length ; i++){
 				itemtypes[i].stk = 0;
+                for (var j = 0 ; j < itemtypes[i].upamnt ; j++)
+                    itemtypes[i].upgrades[j] = false;
 			}
 			sitm = 0;
 		}
@@ -1185,7 +1068,6 @@ function checkFlag() {
 						mee.xv = 7;
 					}
 				}else if (djump){
-
             if (mee.dir)
               mee.xv = Math.max(10,mee.xv+5);
             else
@@ -1269,44 +1151,29 @@ function checkFlag() {
         if (intersectRect(plrectalt,ground[i]))
             groundt.push(ground[i])
     }
-
-
+    
     for (var it = 0; it < steps; it++) {
         //for (var id in cplayers) {
         //    if (id != socket.id){
         //        collidepl(mee,cplayers[id]);
         //    }
         //}
+        
+        var plrect = {top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5};
 		if (Math.abs(mee.xv) > 0.001)
             mee.x += mee.xv*altdt;
         if (Math.abs(mee.yv) > 0.001)
             mee.y += mee.yv*altdt;
-        jump = {up:false,left:false,right:false};
-        for (var i = 0; i < groundt.length; i++) {
-           collide(mee,groundt[i]);
-	    }
-
-
-        var plrect = {top:mee.y-0.5,bottom:mee.y+0.5,right:mee.x+0.5,left:mee.x-0.5};
-		for (var i = 0 ; i < triggers.length ; i++ ){
-			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
-				tfuncs[triggers[i].func](mee);
-                if (triggers[i].name == " ")
-                    triggers[i].cool = 0.2;
-                else    
-				    triggers[i].cool = 5.0;
-			}
-		}
-		for (var id in cplayers) {
+        
+        for (var id in cplayers) {
 		    if (id != socket.id){
 				var player = cplayers[id] || {};
 				for (var i = 0; i < player.pjs.length; i++) {
 					if (intersectRect(plrect,
 						{top:player.pjs[i].y-player.pjs[i].height,bottom:player.pjs[i].y+player.pjs[i].height,right:player.pjs[i].x+player.pjs[i].width,left:player.pjs[i].x-player.pjs[i].width})){
+                        
 						if (hit <= 0.0){
 							mee.hp-=player.pjs[i].atk;
-                            //mee.xv = 10;
-                            //djump=false;
 							hit = 0.3;
 							if (mee.hp <= 0.0){
 								socket.emit('d',id);
@@ -1316,9 +1183,29 @@ function checkFlag() {
 				}
 			}
 		}
+
+        
+        jump = {up:false,left:false,right:false};
+        for (var i = 0; i < groundt.length; i++) {
+           collide(mee,groundt[i]);
+	    }
+
+
+        
+		for (var i = 0 ; i < triggers.length ; i++ ){
+			if (triggers[i].cool < 0 && intersectRect(plrect,triggers[i])){
+				tfuncs[triggers[i].func](mee);
+                if (triggers[i].name == " ")
+                    triggers[i].cool = 0.2;
+                else    
+				    triggers[i].cool = 5.0;
+			}
+		}
+		
         
 	
     }
+    
     //for (var id in cplayers) {
     //    if (id != socket.id){
     //        collidepl(mee,cplayers[id]);
