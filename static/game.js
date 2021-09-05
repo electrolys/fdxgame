@@ -324,7 +324,7 @@ var itemtypes = [
 	{
 		stk:0,
 		name:"pew pew",
-		cool:0.5,
+		cool:0.2,
         upamnt:4,
         upgrades:[false,false,false,false],
 		
