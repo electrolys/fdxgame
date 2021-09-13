@@ -594,7 +594,7 @@ var characters = [
 
 
 characters[0].src = 'static/img/man1.png';
-characters[1].srct = 'static/img/man2.png';
+characters[1].src = 'static/img/man2.png';
 characters[2].src = 'static/img/man3.png';
 
 characters[3].src = 'static/img/girl1.png'
